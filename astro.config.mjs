@@ -8,9 +8,14 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Northlight',
-			description: 'A native digital audio workstation for Windows. Free software under the GNU AGPLv3.',
-			logo: { dark: './src/assets/lockup-dark.svg', light: './src/assets/lockup-light.svg', alt: 'Northlight', replacesTitle: true },
+			description: 'A free and open source digital audio workstation for Windows. Free to use for any purpose, free to study and change, made in the open.',
+			logo: { src: './src/assets/lockup-dark.svg', alt: 'Northlight', replacesTitle: true },
 			favicon: '/favicon.svg',
+			// Dark only for now: no theme picker, and the theme ignores the system setting.
+			components: {
+				ThemeProvider: './src/components/ThemeProvider.astro',
+				ThemeSelect: './src/components/ThemeSelect.astro',
+			},
 			customCss: ['./src/styles/brand.css', './src/styles/theme.css'],
 			head: [{ tag: 'link', attrs: { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' } }],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/northlightaudio/northlight' }],
@@ -24,8 +29,9 @@ export default defineConfig({
 				{
 					label: 'Project',
 					items: [
+						{ label: 'The pledge', slug: 'pledge' },
 						{ label: 'Licence', slug: 'licence' },
-						{ label: 'Contributing', slug: 'contributing' },
+						{ label: 'Join in', slug: 'contributing' },
 					],
 				},
 			],

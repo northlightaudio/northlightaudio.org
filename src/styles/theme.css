@@ -17,10 +17,6 @@ h1#_top {
 		linear-gradient(to bottom, color-mix(in srgb, var(--nl-overcast) 6%, var(--sl-color-black)) 0%, var(--sl-color-black) 55%);
 }
 
-:root[data-theme='light'] [data-has-hero] .page {
-	background: linear-gradient(to bottom, #e9ece9 0%, var(--sl-color-black) 55%);
-}
-
 .hero h1 {
 	font-size: clamp(2.4rem, 6vw, 3.8rem);
 	font-weight: 420;
@@ -43,7 +39,120 @@ h1#_top {
 	border-radius: 0.5rem;
 }
 
-:root[data-theme='light'] .card {
-	background: #ffffff;
-	border-color: var(--sl-color-gray-5);
+/* App screenshots: a thin frame and a soft shadow, as if lifted off the page. */
+.nl-shot {
+	margin: 2rem 0;
+}
+
+.nl-shot img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 0.6rem;
+	border: 1px solid var(--sl-color-gray-5);
+	box-shadow: 0 1.5rem 3rem -1rem rgb(0 0 0 / 0.55);
+}
+
+.nl-shot figcaption {
+	margin-top: 0.75rem;
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-sm);
+}
+
+.nl-shots {
+	display: grid;
+	gap: 1.5rem;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.nl-shots .nl-shot {
+	margin: 0;
+}
+
+/* A full-width photograph with a line of text over the sky. 100vw counts the
+   scrollbar, so the page clips the sideways overflow. */
+body {
+	overflow-x: clip;
+}
+
+.nl-band {
+	position: relative;
+	margin: 4rem 0;
+	margin-inline: calc(50% - 50vw + var(--sl-sidebar-width, 0px) / 2);
+}
+
+[data-has-hero] .nl-band {
+	margin-inline: calc(50% - 50vw);
+}
+
+.nl-band img {
+	display: block;
+	width: 100%;
+	height: clamp(18rem, 45vw, 34rem);
+	object-fit: cover;
+	object-position: center 35%;
+}
+
+.nl-band__text {
+	position: absolute;
+	inset: 30% 0 auto 0;
+	padding: 0 1.5rem;
+	text-align: center;
+}
+
+.nl-band__text p {
+	margin: 0 auto;
+	max-width: 36rem;
+	font-family: var(--nl-font-display);
+	font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+	line-height: 1.2;
+	color: #141815;
+}
+
+.nl-band figcaption {
+	position: absolute;
+	right: 1rem;
+	bottom: 0.75rem;
+	font-size: var(--sl-text-xs);
+	color: rgb(232 229 218 / 0.7);
+}
+
+.nl-band figcaption a {
+	color: inherit;
+}
+
+@media (max-width: 40rem) {
+	.nl-band__text {
+		inset-block-start: 20%;
+	}
+}
+
+/* Feature rows: text beside a screenshot, alternating sides on wide screens. */
+.nl-feature {
+	display: grid;
+	gap: 1.5rem 3rem;
+	align-items: center;
+	margin-block: 3.5rem;
+}
+
+.nl-feature h3 {
+	margin-top: 0;
+}
+
+@media (min-width: 56rem) {
+	.nl-feature {
+		grid-template-columns: 2fr 3fr;
+	}
+
+	.nl-feature--flipped > :first-child {
+		order: 2;
+	}
+
+	.nl-feature--stacked {
+		grid-template-columns: 1fr;
+	}
+
+	.nl-feature--stacked > :first-child {
+		max-width: 44rem;
+	}
 }

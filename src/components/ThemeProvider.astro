@@ -1,0 +1,9 @@
+---
+// The site is dark only for now: this replaces Starlight's theme provider, which
+// would follow the visitor's system setting or a stored choice.
+---
+
+<script is:inline>
+	document.documentElement.dataset.theme = 'dark';
+	window.StarlightThemeProvider = { updatePickers() {} };
+</script>

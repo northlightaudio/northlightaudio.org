@@ -1,48 +1,152 @@
 ---
 title: Home
-description: A native digital audio workstation for Windows. Free software under the GNU AGPLv3.
+description: Northlight is a free and open source digital audio workstation for Windows. Free to use for any purpose, free to study and change, made in the open.
 template: splash
 hero:
-  title: Record the light while it lasts.
-  tagline: Northlight is a digital audio workstation for Windows, built for low-latency recording and careful mixing. Free software, made in the open.
+  title: Music belongs to everyone.
+  tagline: So should the tools for making it. Northlight is a studio for recording, arranging and mixing music, free for anyone to use for any purpose, with code that anyone can read, change and share.
   image:
-    dark: ../../assets/mark.svg
-    light: ../../assets/mark-light.svg
+    file: ../../assets/mark.svg
     alt: The Northlight mark, a half moon rising over the sea
   actions:
     - text: Download
       link: /download/
       icon: right-arrow
-    - text: Source on GitHub
-      link: https://github.com/northlightaudio/northlight
-      icon: github
+    - text: Read the pledge
+      link: /pledge/
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Screenshot from '../../components/Screenshot.astro';
+import PhotoBand from '../../components/PhotoBand.astro';
+import arrangeAndMixer from '../../assets/screenshots/arrange-and-mixer.png';
+import mixer from '../../assets/screenshots/mixer.png';
+import pulsar from '../../assets/screenshots/pulsar-drum-synth.png';
+import pitch from '../../assets/screenshots/vocal-pitch-editing.webp';
+import strip from '../../assets/screenshots/channel-strip.png';
+import moonOverWheat from '../../assets/photos/gytis-bukauskas-moon-over-wheat.jpg';
 
-<CardGrid stagger>
-	<Card title="Record many tracks at once" icon="seti:audio">
-		ASIO and Windows Audio, low-latency monitoring, punch and loop recording into take
-		lanes, swipe comping, and recordings that survive a crash.
+<Screenshot
+	src={arrangeAndMixer}
+	alt="Northlight with a song open: tracks and their MIDI clips in the arrange view, the mixer below and the inspector on the right."
+	caption="Northern Drift, the demo song, in the arrange view and the mixer."
+	wide
+/>
+
+## The freedom to make music
+
+Recording a song used to need a studio. Now it needs a computer and the right software,
+and the right software usually comes with a price, a subscription, or an account that can
+be closed. Whether you get to make music shouldn't depend on any of that.
+
+Northlight is a complete studio that costs nothing and belongs to the people who use it.
+
+<CardGrid>
+	<Card title="Free for everyone" icon="heart">
+		No price, no subscription, no account and no trial that runs out. Download it and
+		it is yours to keep.
 	</Card>
-	<Card title="Your plugins, and its own" icon="puzzle">
-		Hosts VST3 and CLAP instruments and effects with delay compensation and sidechains.
-		Comes with four synths, a sampler and a full channel strip on every track.
+	<Card title="For any purpose" icon="seti:audio">
+		Make an album, score a film, teach a class, sell what you record. Your music is
+		yours, and Northlight asks nothing of it.
 	</Card>
-	<Card title="Time that follows the music" icon="random">
-		A tempo track with changes, ramps and time signatures. MIDI, automation and loops
-		keep their bars and beats, and audio stretches to fit.
+	<Card title="Open to read and change" icon="open-book">
+		The source code is public under the GNU AGPLv3. Study how it works, change it,
+		build it yourself and share what you make of it.
 	</Card>
-	<Card title="MIDI in detail" icon="pencil">
-		A piano roll with controller lanes for pitch bend, mod wheel and any CC, a scale
-		highlight, and Standard MIDI File import and export.
-	</Card>
-	<Card title="Mix and deliver" icon="setting">
-		Buses, FX tracks, folder tracks, track freezing and automation. Export to WAV,
-		AIFF, FLAC or Ogg with dither and loudness normalisation.
-	</Card>
-	<Card title="Free software" icon="open-book">
-		Licensed under the GNU AGPLv3. Read the code, build it yourself, and help shape it.
+	<Card title="Made in the open" icon="comment-alt">
+		Plans, bugs and decisions are public on GitHub, where anyone can follow them and
+		anyone can take part.
 	</Card>
 </CardGrid>
+
+<PhotoBand
+	src={moonOverWheat}
+	alt="A pale moon over a field of wheat and cornflowers at dusk."
+	credit="Gytis Bukauskas"
+	creditHref="https://unsplash.com/photos/a-field-of-wheat-with-the-moon-in-the-background-zlgCUiDRGbM"
+>
+	<p>A computer and the wish to make something should be enough.</p>
+</PhotoBand>
+
+## Free, not cut down
+
+Northlight is built for real work, from recording a band at low latency and comping the
+best take to delivering a finished master. Here are a few of the things it does.
+
+<div class="nl-feature nl-feature--stacked">
+	<div>
+		### Vocal pitch editing
+
+		Northlight finds every note in a sung part. Move a note, split or join notes, or
+		correct the whole take towards the key, and quieten the breaths between phrases.
+		A correction moves a note's centre but keeps the singer's vibrato and the slides
+		between notes, so it still sounds like them. Every edit can be changed or undone
+		later.
+	</div>
+	<Screenshot
+		src={pitch}
+		alt="The pitch editor: a vocal take's notes drawn as blocks on a piano roll, with the sung pitch traced through each one and two notes labelled with how far off the key they are in cents."
+		caption="A vocal take in the pitch editor, corrected towards A major."
+	/>
+</div>
+
+<div class="nl-feature">
+	<div>
+		### Instruments to start with
+
+		You don't need to buy anything to start writing. Northlight comes with Pulsar, a
+		drum synth; Aurora, for basses and keys; Nebula, for slow, drifting pads; Starbit,
+		a chiptune synth; and a sampler for your own sounds. When you want more, it runs
+		your VST3 and CLAP plugins too.
+	</div>
+	<Screenshot
+		src={pulsar}
+		alt="Pulsar, Northlight's drum synth: eight pads with their sounds drawn as waveforms, and controls for the kick."
+		caption="Pulsar, the drum synth."
+	/>
+</div>
+
+<div class="nl-feature nl-feature--flipped">
+	<div>
+		### A mixer that keeps up
+
+		Send to reverb and echo on FX tracks, group tracks into buses, and automate
+		anything. Meters show what's really there, and plugin delays are compensated so
+		everything stays in time. When the mix is done, export to WAV, AIFF, FLAC or Ogg,
+		with loudness normalisation.
+	</div>
+	<Screenshot
+		src={mixer}
+		alt="The mixer: a channel strip for each track with faders, meters, pan and sends, and FX tracks for reverb and echo."
+		caption="The mixer for the demo song, with Hall and Echo FX tracks."
+	/>
+</div>
+
+<div class="nl-feature nl-feature--stacked">
+	<div>
+		### A channel strip on every track
+
+		Every track and bus has a gate, EQ, compressor, de-esser, saturation and limiter
+		built in, ready to switch on. Each one shows what it's doing as you play: the EQ
+		curve, the compressor's gain reduction over time, the saturation curve. Drag them
+		into any order, or start from a preset for vocals, guitars, drums or the mix bus.
+	</div>
+	<Screenshot
+		src={strip}
+		alt="The channel strip: six modules side by side, a gate, a six-band EQ with its curve, a compressor with its transfer curve and gain reduction history, a de-esser, tape saturation with its curve, and a limiter, each showing the drums as they play, with the spectrum under the EQ curve."
+		caption="The channel strip on the drums, with every module switched on, as the song plays."
+	/>
+</div>
+
+<LinkCard
+	title="The Northlight pledge"
+	description="What we believe, and the promises we make to everyone who uses Northlight."
+	href="/pledge/"
+/>
+<LinkCard
+	title="Join in"
+	description="Report a bug, suggest an idea, improve the manual or write code. Everyone is welcome."
+	href="/contributing/"
+/>
