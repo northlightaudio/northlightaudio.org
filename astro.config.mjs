@@ -32,6 +32,7 @@ export default defineConfig({
 						{ label: 'The pledge', slug: 'pledge' },
 						{ label: 'Licence', slug: 'licence' },
 						{ label: 'Join in', slug: 'contributing' },
+						{ label: 'Press kit', slug: 'press' },
 					],
 				},
 			],

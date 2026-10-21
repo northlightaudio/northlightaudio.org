@@ -440,3 +440,179 @@ body {
 	box-shadow: none;
 	color: var(--nl-overcast);
 }
+
+/* ----- The press kit ----- */
+
+/* Logo tiles: each logo on the background it is made for, with its downloads. */
+.nl-logos {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+	margin-block: 1.5rem;
+}
+
+.nl-logo {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	overflow: hidden;
+	background: var(--nl-surface-1);
+	border: 1px solid var(--nl-line-subtle);
+	border-radius: var(--nl-radius-md);
+}
+
+.nl-logo--wide {
+	grid-column: span 2;
+}
+
+@media (max-width: 30rem) {
+	.nl-logo--wide {
+		grid-column: auto;
+	}
+}
+
+.nl-logo > div {
+	display: grid;
+	place-items: center;
+	height: 9rem;
+	padding: 1.5rem;
+}
+
+.nl-logo--dark > div {
+	background: var(--nl-canvas);
+}
+
+.nl-logo--light > div {
+	background: #f7f5ec;
+}
+
+.nl-logo--paper > div {
+	background: #ffffff;
+}
+
+.nl-logo img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.nl-logo:not(.nl-logo--wide) img {
+	max-height: 4.5rem;
+}
+
+.nl-logo figcaption {
+	display: grid;
+	gap: 0.2rem;
+	padding: 0.75rem 1rem;
+	border-top: 1px solid var(--nl-line-subtle);
+	font-size: var(--sl-text-sm);
+}
+
+.nl-logo figcaption strong {
+	color: var(--nl-text-primary);
+	font-weight: 500;
+}
+
+.nl-logo figcaption span {
+	color: var(--nl-text-tertiary);
+}
+
+.nl-logo figcaption a {
+	color: var(--nl-overcast);
+}
+
+/* Colour swatches. */
+.nl-swatches {
+	display: grid;
+	gap: 0.75rem;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr));
+	margin-block: 1.5rem;
+}
+
+.nl-swatches > div {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: 0.1rem;
+	min-height: 6rem;
+	padding: 0.75rem;
+	background: var(--swatch);
+	border: 1px solid var(--nl-line-strong);
+	border-radius: var(--nl-radius-md);
+	color: var(--nl-text-primary);
+}
+
+.nl-swatches > .nl-swatch--light {
+	color: #141815;
+}
+
+.nl-swatches span {
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+}
+
+.nl-swatches code {
+	padding: 0;
+	background: none;
+	color: inherit;
+	font-size: var(--sl-text-xs);
+	opacity: 0.8;
+	user-select: all;
+}
+
+.nl-type-sample {
+	font-family: var(--nl-font-display);
+	font-size: var(--sl-text-xl);
+	font-weight: 450 !important;
+}
+
+/* Screenshot thumbnails that open the full file. */
+.nl-shot-grid {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+	margin-block: 1.5rem;
+}
+
+.nl-shot-grid a {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	background: var(--nl-surface-1);
+	border: 1px solid var(--nl-line-subtle);
+	border-radius: var(--nl-radius-md);
+	color: var(--nl-text-secondary);
+	font-size: var(--sl-text-sm);
+	text-decoration: none;
+	transition:
+		background 120ms ease-out,
+		border-color 120ms ease-out;
+}
+
+.nl-shot-grid a:hover {
+	background: var(--nl-surface-2);
+	border-color: var(--nl-line-strong);
+	color: var(--nl-text-primary);
+}
+
+.nl-shot-grid img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	object-fit: cover;
+	object-position: left top;
+	background: var(--nl-canvas);
+}
+
+.nl-shot-grid span {
+	padding: 0.65rem 0.85rem;
+}
+
+/* Quoted descriptions in the press kit: a quiet panel rather than a rule. */
+.sl-markdown-content blockquote {
+	padding: 0.9rem 1.1rem;
+	background: var(--nl-surface-1);
+	border: 1px solid var(--nl-line-subtle);
+	border-inline-start: 2px solid var(--nl-overcast);
+	border-radius: var(--nl-radius-sm);
+	color: var(--nl-text-primary);
+}
