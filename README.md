@@ -54,3 +54,14 @@ PNGs) and commit the result:
 ```
 powershell -File scripts/press-kit.ps1
 ```
+
+## Share image
+
+`public/og-image.jpg` (1200 x 630) is the picture shown when a page is shared on social
+media or in chat; `src/routeData.ts` adds it to every page's Open Graph tags, along with
+the home page's title. It's rendered from `scripts/og-image.html` with Microsoft Edge.
+After changing the template, the logo or the photograph:
+
+```
+powershell -File scripts/og-image.ps1
+```

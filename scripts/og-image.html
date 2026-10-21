@@ -1,0 +1,65 @@
+<!doctype html>
+<!-- The image shown when a page of the site is shared (public/og-image.jpg, 1200 x 630).
+     scripts/og-image.ps1 renders it with headless Edge. It is laid out like the app's
+     welcome sheet: the moon photograph fading into Peat, then the lockup and the line. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+	@font-face {
+		font-family: 'Newsreader';
+		src: url('../public/fonts/Newsreader-Variable.ttf') format('truetype');
+		font-weight: 200 800;
+	}
+	html, body {
+		margin: 0;
+		width: 1200px;
+		height: 630px;
+		overflow: hidden;
+		background: #141815;
+	}
+	.photo {
+		position: absolute;
+		inset: 0 0 auto 0;
+		height: 400px;
+		background: url('../src/assets/photos/gytis-bukauskas-moon-over-wheat.jpg') center 22% / cover;
+	}
+	.photo::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to bottom, rgb(20 24 21 / 0) 30%, rgb(20 24 21 / 0.85) 75%, #141815 100%);
+	}
+	.text {
+		position: absolute;
+		left: 80px;
+		right: 80px;
+		bottom: 72px;
+	}
+	.lockup {
+		display: block;
+		height: 56px;
+		margin-bottom: 30px;
+	}
+	h1 {
+		margin: 0;
+		color: #e8e5da;
+		font: 420 76px/1.02 'Newsreader', Georgia, serif;
+		letter-spacing: -0.01em;
+	}
+	p {
+		margin: 18px 0 0;
+		color: #a9afa6;
+		font: 400 26px/1.35 'Inter', 'Segoe UI', system-ui, sans-serif;
+	}
+</style>
+</head>
+<body>
+	<div class="photo"></div>
+	<div class="text">
+		<img class="lockup" src="../src/assets/lockup-dark.svg" alt="">
+		<h1>Music belongs to everyone.</h1>
+		<p>A free and open source studio for recording, arranging and mixing music on Windows.</p>
+	</div>
+</body>
+</html>

@@ -11,6 +11,8 @@ export default defineConfig({
 			description: 'A free and open source digital audio workstation for Windows. Anyone can use it for anything, and anyone can read and change its code.',
 			logo: { src: './src/assets/lockup-dark.svg', alt: 'Northlight', replacesTitle: true },
 			favicon: '/favicon.svg',
+			// The share image on every page and the home page's title (src/routeData.ts).
+			routeMiddleware: './src/routeData.ts',
 			// Dark only for now: no theme picker, and the theme ignores the system setting.
 			components: {
 				ThemeProvider: './src/components/ThemeProvider.astro',
