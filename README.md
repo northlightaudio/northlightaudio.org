@@ -43,6 +43,22 @@ It rewrites `src/styles/brand.css`, the mark and lockup in `src/assets`, the fav
 the Newsreader font in `public/`. Commit the result. Set `NORTHLIGHT_APP_DIR` if the app
 checkout is somewhere else. Site-only styling lives in `src/styles/theme.css`.
 
+## Screenshots
+
+The screenshots in `src/assets/screenshots/` come from the app's capture mode
+(`--capture`), which saves its window and named parts of it (the mixer, the channel
+strip, an instrument's editor) at 2x while the demo song plays silently. When the
+app's design changes, rebuild the app, then regenerate them and the press kit:
+
+```
+powershell -File scripts/screenshots.ps1
+```
+
+It uses the newest `Northlight.exe` in the app checkout's `build` folder (or `-Exe`).
+The vocal pitch editing shot needs a sung recording: pass one with `-Vocal` (and the
+key with `-Key`), or that screenshot is left as it is. Check the images before
+committing them.
+
 ## Press kit
 
 The press kit page (`src/content/docs/press.mdx`) links to files in `public/press/`:
