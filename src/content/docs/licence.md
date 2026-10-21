@@ -13,9 +13,9 @@ right to:
 - **share it** with anyone;
 - **share their changes**, so others benefit too.
 
-The licence protects those rights for everyone who comes after you. That is why it was
-chosen: Northlight can't be taken private, and nobody can receive it with fewer freedoms
-than you have.
+The licence protects those rights for everyone who comes after you. That's why we chose
+it: Northlight can't be taken private, and nobody can receive it with fewer freedoms than
+you have.
 
 ## In practice
 

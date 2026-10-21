@@ -8,7 +8,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Northlight',
-			description: 'A free and open source digital audio workstation for Windows. Free to use for any purpose, free to study and change, made in the open.',
+			description: 'A free and open source digital audio workstation for Windows. Anyone can use it for anything, and anyone can read and change its code.',
 			logo: { src: './src/assets/lockup-dark.svg', alt: 'Northlight', replacesTitle: true },
 			favicon: '/favicon.svg',
 			// Dark only for now: no theme picker, and the theme ignores the system setting.
