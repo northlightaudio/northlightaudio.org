@@ -1,0 +1,46 @@
+---
+title: Home
+description: A native digital audio workstation for Windows. Free software under the GNU AGPLv3.
+template: splash
+hero:
+  title: Northlight
+  tagline: A digital audio workstation for Windows, built for low-latency recording and careful mixing. Free software, in the open.
+  image:
+    file: ../../assets/mark.svg
+  actions:
+    - text: Download
+      link: /download/
+      icon: right-arrow
+    - text: Source on GitHub
+      link: https://github.com/northlightaudio/northlight
+      icon: github
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+	<Card title="Record many tracks at once" icon="seti:audio">
+		ASIO and Windows Audio, low-latency monitoring, punch and loop recording into take
+		lanes, swipe comping, and recordings that survive a crash.
+	</Card>
+	<Card title="Your plugins, and its own" icon="puzzle">
+		Hosts VST3 and CLAP instruments and effects with delay compensation and sidechains.
+		Comes with four synths, a sampler and a full channel strip on every track.
+	</Card>
+	<Card title="Time that follows the music" icon="random">
+		A tempo track with changes, ramps and time signatures. MIDI, automation and loops
+		keep their bars and beats, and audio stretches to fit.
+	</Card>
+	<Card title="MIDI in detail" icon="pencil">
+		A piano roll with controller lanes for pitch bend, mod wheel and any CC, a scale
+		highlight, and Standard MIDI File import and export.
+	</Card>
+	<Card title="Mix and deliver" icon="setting">
+		Buses, FX tracks, folder tracks, track freezing and automation. Export to WAV,
+		AIFF, FLAC or Ogg with dither and loudness normalisation.
+	</Card>
+	<Card title="Free software" icon="open-book">
+		Licensed under the GNU AGPLv3. Read the code, build it yourself, and help shape it.
+	</Card>
+</CardGrid>
