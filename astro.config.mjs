@@ -19,7 +19,19 @@ export default defineConfig({
 				ThemeSelect: './src/components/ThemeSelect.astro',
 			},
 			customCss: ['./src/styles/brand.css', './src/styles/theme.css'],
-			head: [{ tag: 'link', attrs: { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' } }],
+			head: [
+				{ tag: 'link', attrs: { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' } },
+				// Visit counts and referrers with GoatCounter: no cookies, nothing that follows
+				// visitors across sites. It does not count visits from localhost.
+				{
+					tag: 'script',
+					attrs: {
+						'data-goatcounter': 'https://northlightaudio.goatcounter.com/count',
+						async: true,
+						src: 'https://gc.zgo.at/count.js',
+					},
+				},
+			],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/northlightaudio/northlight' }],
 			editLink: { baseUrl: 'https://github.com/northlightaudio/northlightaudio.org/edit/main/' },
 			sidebar: [
