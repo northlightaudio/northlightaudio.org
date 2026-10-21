@@ -22,6 +22,44 @@
 	--nl-sea-grass: #8fb38a;
 	--nl-heather: #c3a2be;
 
+	/* Surfaces, lines and text, as in the app. */
+	--nl-surface-0: #141815;
+	--nl-surface-1: #1c211d;
+	--nl-surface-2: #262c27;
+	--nl-surface-3: #2f3630;
+	--nl-line-subtle: #e8e5da0f;
+	--nl-line-strong: #e8e5da1f;
+	--nl-line-focus: #93abc2b3;
+	--nl-text-primary: #e8e5da;
+	--nl-text-secondary: #a9afa6;
+	--nl-text-tertiary: #7e857c;
+	--nl-accent-subtle: #93abc21f;
+	--nl-accent-hover: #a9bdd0;
+
+	/* The primary button: moonlight, the one bright thing in a view. */
+	--nl-primary: #e8e5da;
+	--nl-primary-hover: #f4f1e6;
+	--nl-primary-pressed: #d2cfc3;
+	--nl-text-on-primary: #141815;
+
+	/* Material: panels are flat, controls are tactile (design system 2.4). */
+	--nl-control-top: #2a312b;
+	--nl-control-bottom: #212722;
+	--nl-control-highlight: #e8e5da12;
+	--nl-control-shadow: 0 1px 1px #00000080;
+	--nl-pressed-inset: inset 0 1px 2px #000000cc;
+	--nl-groove: #0f1311;
+	--nl-groove-inset: inset 0 1px 2px #000000cc;
+	--nl-groove-lip: #e8e5da0f;
+	--nl-glow-accent: 0 0 10px #93abc266;
+	--nl-readout-well: #0f1311;
+	--nl-readout-text: #93abc2;
+
+	--nl-radius-sm: 3px;
+	--nl-radius-md: 6px;
+	--nl-radius-lg: 10px;
+	--nl-letter-spacing-caps: 0.04em;
+
 	--sl-font: var(--nl-font-ui);
 	--sl-font-mono: var(--nl-font-mono);
 }

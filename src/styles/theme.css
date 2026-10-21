@@ -32,11 +32,279 @@ h1#_top {
 	width: min(16rem, 55vw);
 }
 
-/* Cards sit on the turf surface rather than in outlined boxes. */
+/* ----- Controls and panels, after the app's design system (docs/design/02-design-system.md):
+   panels are flat surfaces with a faint line; controls get the tactile material. ----- */
+
+:root {
+	--sl-color-hairline-light: var(--nl-line-strong);
+	--sl-color-hairline: var(--nl-line-subtle);
+	--sl-color-hairline-shade: var(--nl-line-subtle);
+}
+
+/* Keyboard focus: a 2 px ring outside the control, never for pointer clicks. */
+:focus-visible {
+	outline: 2px solid var(--nl-line-focus);
+	outline-offset: 2px;
+}
+
+/* Buttons. Primary is moonlight, the one bright thing in a view; secondary has the
+   control material: a short vertical gradient, a highlight along the top, a 1 px
+   shadow below. Both have the small radius of the app's buttons. */
+.sl-link-button {
+	gap: 0.6em;
+	padding: 0.7rem 1.2rem;
+	border: 0;
+	border-radius: var(--nl-radius-sm);
+	font-size: var(--sl-text-sm);
+	font-weight: 500;
+	line-height: 1.2;
+	letter-spacing: 0.005em;
+	transition:
+		background 120ms ease-out,
+		box-shadow 120ms ease-out;
+}
+
+.sl-link-button.primary {
+	background: linear-gradient(to bottom, var(--nl-primary-hover), var(--nl-primary));
+	color: var(--nl-text-on-primary);
+	box-shadow:
+		inset 0 1px 0 rgb(255 255 255 / 0.35),
+		var(--nl-control-shadow);
+}
+
+.sl-link-button.primary:hover {
+	background: var(--nl-primary-hover);
+	color: var(--nl-text-on-primary);
+}
+
+.sl-link-button.primary:active {
+	background: var(--nl-primary-pressed);
+	box-shadow: var(--nl-pressed-inset);
+}
+
+.sl-link-button:is(.secondary, .minimal) {
+	padding-inline: 1.2rem;
+	background: linear-gradient(to bottom, var(--nl-control-top), var(--nl-control-bottom));
+	color: var(--nl-text-primary);
+	box-shadow:
+		inset 0 1px 0 var(--nl-control-highlight),
+		var(--nl-control-shadow);
+}
+
+.sl-link-button:is(.secondary, .minimal):hover {
+	background: linear-gradient(to bottom, var(--nl-surface-3), var(--nl-control-top));
+	color: var(--nl-text-primary);
+}
+
+.sl-link-button:is(.secondary, .minimal):active {
+	background: linear-gradient(to bottom, var(--nl-control-bottom), var(--nl-control-top));
+	box-shadow: var(--nl-pressed-inset);
+}
+
+.hero .sl-flex.actions {
+	gap: 0.75rem;
+}
+
+/* Panels: the card surface with a faint line, the radius of the app's cards. */
+.card,
+.sl-link-card,
+.pagination-links > a {
+	background: var(--nl-surface-1);
+	border: 1px solid var(--nl-line-subtle);
+	border-radius: var(--nl-radius-md);
+	box-shadow: none;
+}
+
 .card {
-	background: var(--sl-color-gray-6);
-	border-color: transparent;
-	border-radius: 0.5rem;
+	padding: 1.5rem;
+	gap: 0.6rem;
+}
+
+/* Card icons in the quiet text colour: Starlight's rotating colours would put
+   Rowan, which means recording, on a card about licensing. */
+.card .icon {
+	border: 0;
+	background: none;
+	padding: 0;
+	color: var(--nl-text-secondary);
+	font-size: 1.15em !important;
+}
+
+.card .title {
+	gap: 0.65rem;
+	font-size: var(--sl-text-lg);
+	font-weight: 600;
+}
+
+.card .body {
+	color: var(--nl-text-secondary);
+	font-size: var(--sl-text-sm);
+}
+
+.sl-link-card,
+.pagination-links > a {
+	transition:
+		background 120ms ease-out,
+		border-color 120ms ease-out;
+}
+
+.sl-link-card:hover,
+.pagination-links > a:hover {
+	background: var(--nl-surface-2);
+	border-color: var(--nl-line-strong);
+}
+
+.sl-link-card .title {
+	font-weight: 600;
+}
+
+.sl-link-card .description {
+	color: var(--nl-text-secondary);
+}
+
+.sl-link-card .icon {
+	color: var(--nl-text-tertiary);
+	transition: color 120ms ease-out;
+}
+
+.sl-link-card:hover .icon {
+	color: var(--nl-text-primary);
+}
+
+.pagination-links > a {
+	color: var(--nl-text-primary);
+}
+
+.pagination-links > a span {
+	color: var(--nl-text-tertiary);
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.pagination-links .link-title {
+	color: var(--nl-text-primary);
+	font-family: var(--nl-font-display);
+	font-size: var(--sl-text-xl);
+	font-weight: 450;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+/* The sidebar: selection as the app shows it, a faint Overcast fill and Overcast
+   text, not a solid block. */
+.sidebar-content a {
+	border-radius: var(--nl-radius-sm);
+}
+
+.sidebar-content a:hover {
+	background: var(--nl-surface-2);
+	color: var(--nl-text-primary);
+}
+
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover,
+.sidebar-content a[aria-current='page']:focus {
+	background: var(--nl-accent-subtle);
+	color: var(--nl-overcast);
+	font-weight: 500;
+}
+
+.sidebar-content .large {
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+}
+
+/* Search: a text field, with its shortcut in a readout well like the app's
+   time display. */
+site-search button[data-open-modal] {
+	background: var(--nl-surface-1);
+	border: 1px solid var(--nl-line-strong);
+	border-radius: var(--nl-radius-sm);
+	color: var(--nl-text-tertiary);
+}
+
+site-search button[data-open-modal]:hover {
+	border-color: color-mix(in srgb, var(--nl-text-primary) 22%, transparent);
+	color: var(--nl-text-secondary);
+}
+
+site-search button[data-open-modal] > kbd {
+	padding: 0.15rem 0.4rem;
+	background: var(--nl-readout-well);
+	border-radius: var(--nl-radius-sm);
+	box-shadow: var(--nl-groove-inset);
+	color: var(--nl-text-tertiary);
+	font-family: var(--nl-font-mono);
+	font-size: 0.7rem;
+}
+
+/* Links in text: Overcast with a quiet underline that firms up on hover. */
+.sl-markdown-content a:not(:where(.not-content *, .sl-link-button, .sl-link-card)) {
+	text-decoration-color: color-mix(in srgb, var(--nl-overcast) 45%, transparent);
+	text-underline-offset: 0.2em;
+	transition: text-decoration-color 120ms ease-out;
+}
+
+.sl-markdown-content a:not(:where(.not-content *, .sl-link-button, .sl-link-card)):hover {
+	text-decoration-color: currentColor;
+}
+
+/* Eyebrows: small spaced capitals over a heading, as the app labels its sheets
+   ("WELCOME TO", "STEP 1 OF 2"). */
+.nl-eyebrow {
+	margin: 0;
+	color: var(--nl-text-tertiary);
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.sl-markdown-content .nl-eyebrow + :is(h2, h3, .sl-heading-wrapper) {
+	margin-top: 0.4rem;
+}
+
+/* Grouped rows, as in the app's settings sheets: a panel of label, note and value. */
+.nl-rows {
+	margin-block: 1.5rem;
+	background: var(--nl-surface-1);
+	border: 1px solid var(--nl-line-subtle);
+	border-radius: var(--nl-radius-md);
+}
+
+.nl-rows > div {
+	display: grid;
+	gap: 0.25rem 1.5rem;
+	padding: 0.9rem 1.1rem;
+}
+
+.nl-rows > div + div {
+	margin: 0;
+	border-top: 1px solid var(--nl-line-subtle);
+}
+
+.nl-rows strong {
+	color: var(--nl-text-primary);
+	font-weight: 500;
+}
+
+.nl-rows span {
+	color: var(--nl-text-tertiary);
+	font-size: var(--sl-text-sm);
+}
+
+.nl-rows p {
+	margin: 0;
+	color: var(--nl-text-secondary);
+}
+
+@media (min-width: 40rem) {
+	.nl-rows > div {
+		grid-template-columns: 14rem 1fr;
+		align-items: baseline;
+	}
 }
 
 /* App screenshots: a thin frame and a soft shadow, as if lifted off the page. */
@@ -48,8 +316,8 @@ h1#_top {
 	display: block;
 	width: 100%;
 	height: auto;
-	border-radius: 0.6rem;
-	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--nl-radius-lg);
+	border: 1px solid var(--nl-line-strong);
 	box-shadow: 0 1.5rem 3rem -1rem rgb(0 0 0 / 0.55);
 }
 
@@ -155,4 +423,20 @@ body {
 	.nl-feature--stacked > :first-child {
 		max-width: 44rem;
 	}
+}
+
+/* The mobile menu button: a control, like the search button beside it. */
+.sl-menu-button {
+	background: linear-gradient(to bottom, var(--nl-control-top), var(--nl-control-bottom));
+	border-radius: var(--nl-radius-sm);
+	box-shadow:
+		inset 0 1px 0 var(--nl-control-highlight),
+		var(--nl-control-shadow);
+	color: var(--nl-text-primary);
+}
+
+.sl-menu-button:has(~ :popover-open) {
+	background: var(--nl-accent-subtle);
+	box-shadow: none;
+	color: var(--nl-overcast);
 }
