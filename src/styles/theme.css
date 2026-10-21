@@ -1,35 +1,49 @@
-/* Northlight's colours, from the application's design tokens (docs/design/tokens.json
-   in the northlight repository): the accent blue on near-black surfaces. */
+/* The site's own styling. Colours and fonts come from brand.css, which
+   scripts/sync-brand.mjs generates from the Northlight repository's design tokens. */
 
-:root {
-	--sl-color-accent-low: #1a2440;
-	--sl-color-accent: #7aa2ff;
-	--sl-color-accent-high: #c9d8ff;
-	--sl-color-white: #ececee;
-	--sl-color-gray-1: #ececee;
-	--sl-color-gray-2: #a0a0a8;
-	--sl-color-gray-3: #6e6e78;
-	--sl-color-gray-4: #4a4a52;
-	--sl-color-gray-5: #2f2f34;
-	--sl-color-gray-6: #1d1d20;
-	--sl-color-black: #0f0f10;
+/* Headings in the display face, as in the brand guide (docs/design/15-brand.md). */
+.hero h1,
+.sl-markdown-content :is(h1, h2, h3),
+h1#_top {
+	font-family: var(--nl-font-display);
+	font-weight: 450;
+	letter-spacing: -0.01em;
 }
 
-:root[data-theme='light'] {
-	--sl-color-accent-low: #dfe7ff;
-	--sl-color-accent: #3d63c9;
-	--sl-color-accent-high: #1a2a5c;
-	--sl-color-white: #0f0f10;
-	--sl-color-gray-1: #1d1d20;
-	--sl-color-gray-2: #3a3a40;
-	--sl-color-gray-3: #6e6e78;
-	--sl-color-gray-4: #a0a0a8;
-	--sl-color-gray-5: #d6d6dc;
-	--sl-color-gray-6: #ececee;
-	--sl-color-gray-7: #f6f6f8;
-	--sl-color-black: #ffffff;
+/* The landing page: a dusk sky fading into the field. */
+[data-has-hero] .page {
+	background:
+		radial-gradient(ellipse 70% 40% at 72% 0%, color-mix(in srgb, var(--nl-overcast) 14%, transparent), transparent 70%),
+		linear-gradient(to bottom, color-mix(in srgb, var(--nl-overcast) 6%, var(--sl-color-black)) 0%, var(--sl-color-black) 55%);
+}
+
+:root[data-theme='light'] [data-has-hero] .page {
+	background: linear-gradient(to bottom, #e9ece9 0%, var(--sl-color-black) 55%);
+}
+
+.hero h1 {
+	font-size: clamp(2.4rem, 6vw, 3.8rem);
+	font-weight: 420;
+	line-height: 1.05;
+}
+
+.hero .tagline {
+	color: var(--sl-color-gray-2);
+	max-width: 34rem;
 }
 
 .hero img {
-	color: var(--sl-color-accent);
+	width: min(16rem, 55vw);
+}
+
+/* Cards sit on the turf surface rather than in outlined boxes. */
+.card {
+	background: var(--sl-color-gray-6);
+	border-color: transparent;
+	border-radius: 0.5rem;
+}
+
+:root[data-theme='light'] .card {
+	background: #ffffff;
+	border-color: var(--sl-color-gray-5);
 }

@@ -28,3 +28,17 @@ deploy from GitHub Actions, and point the domain's DNS at GitHub Pages.
 
 The user manual will live in the application's repository, versioned with the code, and
 be pulled into `src/content/docs/manual/` when the site builds.
+
+## Brand
+
+Colours, fonts, the logo and the favicon come from the application repository, which
+holds the brand (`docs/design/15-brand.md` and `docs/design/tokens.json` there). After a
+brand change, with the app checked out beside this repository:
+
+```
+npm run sync-brand
+```
+
+It rewrites `src/styles/brand.css`, the mark and lockup in `src/assets`, the favicon and
+the Newsreader font in `public/`. Commit the result. Set `NORTHLIGHT_APP_DIR` if the app
+checkout is somewhere else. Site-only styling lives in `src/styles/theme.css`.
