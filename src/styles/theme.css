@@ -436,12 +436,16 @@ html:not([data-has-sidebar]):not([data-has-hero]) {
 	line-height: 1.2;
 	letter-spacing: 0.005em;
 	transition:
-		background 120ms ease-out,
+		background-color 120ms ease-out,
 		box-shadow 120ms ease-out;
 }
 
+/* The colour is always a solid background-color, with the sheen as a gradient that
+   fades to transparent over it. Only the colour changes on hover, so it can animate:
+   swapping a gradient for a colour can't, and the button would blink dark first. */
 .sl-link-button.primary {
-	background: linear-gradient(to bottom, var(--nl-primary-hover), var(--nl-primary));
+	background-color: var(--nl-primary);
+	background-image: linear-gradient(to bottom, var(--nl-primary-hover), transparent);
 	color: var(--nl-text-on-primary);
 	box-shadow:
 		inset 0 1px 0 rgb(255 255 255 / 0.35),
@@ -449,12 +453,13 @@ html:not([data-has-sidebar]):not([data-has-hero]) {
 }
 
 .sl-link-button.primary:hover {
-	background: var(--nl-primary-hover);
+	background-color: var(--nl-primary-hover);
 	color: var(--nl-text-on-primary);
 }
 
 .sl-link-button.primary:active {
-	background: var(--nl-primary-pressed);
+	background-color: var(--nl-primary-pressed);
+	background-image: none;
 	box-shadow: var(--nl-pressed-inset);
 }
 
