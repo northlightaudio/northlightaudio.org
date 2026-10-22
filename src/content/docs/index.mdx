@@ -6,8 +6,8 @@ hero:
   title: Music belongs to everyone.
   tagline: So should the tools for making it. Northlight is a studio for recording, arranging and mixing music. It's free to use for whatever you like, and its code is open for anyone to read and change.
   image:
-    file: ../../assets/mark.svg
-    alt: The Northlight mark, a half moon rising over the sea
+    file: ../../assets/screenshots/arrange-and-mixer.png
+    alt: "Northlight with a song open: tracks and their MIDI clips in the arrange view, the mixer below and the plugin browser on the right."
   actions:
     - text: Download
       link: /download/
@@ -15,24 +15,18 @@ hero:
     - text: Read the pledge
       link: /pledge/
       variant: secondary
+heroNote: For Windows 10 and 11 · Free and open source under the GNU AGPLv3 · No account, no subscription
+heroCaption: Northern Drift, the demo song, in the arrange view and the mixer.
 ---
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import Screenshot from '../../components/Screenshot.astro';
 import PhotoBand from '../../components/PhotoBand.astro';
-import arrangeAndMixer from '../../assets/screenshots/arrange-and-mixer.png';
 import mixer from '../../assets/screenshots/mixer.png';
 import pulsar from '../../assets/screenshots/pulsar-drum-synth.png';
 import pitch from '../../assets/screenshots/vocal-pitch-editing.png';
 import strip from '../../assets/screenshots/channel-strip.png';
 import moonOverWheat from '../../assets/photos/gytis-bukauskas-moon-over-wheat.jpg';
-
-<Screenshot
-	src={arrangeAndMixer}
-	alt="Northlight with a song open: tracks and their MIDI clips in the arrange view, the mixer below and the plugin browser on the right."
-	caption="Northern Drift, the demo song, in the arrange view and the mixer."
-	wide
-/>
 
 <p class="nl-eyebrow">Why Northlight</p>
 
@@ -72,7 +66,7 @@ Northlight is a complete studio that costs nothing and belongs to the people who
 	<p>A computer and the wish to make something should be enough.</p>
 </PhotoBand>
 
-<p class="nl-eyebrow">What it does</p>
+<p class="nl-eyebrow" id="features">What it does</p>
 
 ## Free, not cut down
 

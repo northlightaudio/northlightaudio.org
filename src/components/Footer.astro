@@ -1,0 +1,47 @@
+---
+// Starlight's page footer (edit link and previous/next links), then the site footer:
+// the logo, the links in columns and the licence, across the full width of the page.
+import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
+import { Image } from 'astro:assets';
+import lockup from '../assets/lockup-dark.svg';
+import { footerNav } from '../nav';
+
+const isHome = Boolean(Astro.locals.starlightRoute.entry.data.hero);
+---
+
+{!isHome && <DefaultFooter />}
+
+<footer class="nl-footer not-content print:hidden">
+	<div class="nl-footer__grid">
+		<div class="nl-footer__brand">
+			<a href="/" class="nl-footer__logo"><Image src={lockup} alt="Northlight" height={32} /></a>
+			<p>
+				A free and open source digital audio workstation for Windows, for recording,
+				arranging and mixing music.
+			</p>
+		</div>
+		{
+			footerNav.map(({ title, links }) => (
+				<nav class="nl-footer__col" aria-label={title}>
+					<h2>{title}</h2>
+					<ul>
+						{links.map(({ label, href }) => (
+							<li>
+								<a href={href}>{label}</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+			))
+		}
+	</div>
+	<div class="nl-footer__legal">
+		<p>
+			Northlight is free software under the <a href="/licence/">GNU AGPLv3</a>. Its
+			copyright belongs to the people who wrote it.
+		</p>
+		<p>
+			<a href="https://github.com/northlightaudio/northlightaudio.org">This site's source</a>
+		</p>
+	</div>
+</footer>

@@ -1,0 +1,36 @@
+---
+// The menu button and menu for narrow screens on pages without a sidebar. Like
+// Starlight's sidebar menu it uses the popover API, so it works without JavaScript.
+import { Icon } from '@astrojs/starlight/components';
+import { github, isCurrent, primaryNav } from '../nav';
+
+const { pathname } = Astro.url;
+const links = [...primaryNav, { label: 'Download', href: '/download/' }, { label: 'Press kit', href: '/press/' }];
+---
+
+<button class="nl-menu-button" popovertarget="nl-site-menu" aria-label="Menu">
+	<Icon name="bars" class="nl-menu-button__open" />
+	<Icon name="close" class="nl-menu-button__close" />
+</button>
+<nav id="nl-site-menu" class="nl-site-menu" popover aria-label="Main">
+	<ul>
+		{
+			links.map(({ label, href }) => (
+				<li>
+					<a href={href} aria-current={isCurrent(href, pathname) ? 'page' : undefined}>
+						{label}
+					</a>
+				</li>
+			))
+		}
+		<li><a href={github}>GitHub</a></li>
+	</ul>
+</nav>
+
+<script>
+	// Close the menu when one of its links goes to a part of the current page.
+	const menu = document.getElementById('nl-site-menu');
+	menu?.addEventListener('click', (event) => {
+		if ((event.target as Element).closest('a')) menu.hidePopover();
+	});
+</script>

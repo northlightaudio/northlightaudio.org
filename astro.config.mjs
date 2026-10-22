@@ -13,10 +13,16 @@ export default defineConfig({
 			favicon: '/favicon.svg',
 			// The share image on every page and the home page's title (src/routeData.ts).
 			routeMiddleware: './src/routeData.ts',
-			// Dark only for now: no theme picker, and the theme ignores the system setting.
 			components: {
+				// Dark only for now: no theme picker, and the theme ignores the system setting.
 				ThemeProvider: './src/components/ThemeProvider.astro',
 				ThemeSelect: './src/components/ThemeSelect.astro',
+				// A site header and footer instead of documentation chrome, and a home page
+				// hero that leads with a screenshot. The links are in src/nav.ts.
+				Header: './src/components/Header.astro',
+				MobileMenuFooter: './src/components/MobileMenuFooter.astro',
+				Footer: './src/components/Footer.astro',
+				Hero: './src/components/Hero.astro',
 			},
 			customCss: ['./src/styles/brand.css', './src/styles/theme.css'],
 			head: [
@@ -34,20 +40,12 @@ export default defineConfig({
 			],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/northlightaudio/northlight' }],
 			editLink: { baseUrl: 'https://github.com/northlightaudio/northlightaudio.org/edit/main/' },
+			// Only the manual has a sidebar. The other pages use the splash template and
+			// are reached from the header and footer.
 			sidebar: [
-				{ label: 'Download', slug: 'download' },
 				{
 					label: 'Manual',
 					items: [{ autogenerate: { directory: 'manual' } }],
-				},
-				{
-					label: 'Project',
-					items: [
-						{ label: 'The pledge', slug: 'pledge' },
-						{ label: 'Licence', slug: 'licence' },
-						{ label: 'Join in', slug: 'contributing' },
-						{ label: 'Press kit', slug: 'press' },
-					],
 				},
 			],
 		}),

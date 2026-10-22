@@ -1,4 +1,5 @@
 ---
+template: splash
 title: Join in
 description: Northlight is made by the people who use it. How to report bugs, share ideas, improve the manual and contribute code.
 ---

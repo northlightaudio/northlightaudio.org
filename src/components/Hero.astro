@@ -1,0 +1,47 @@
+---
+// The home page's hero: the headline, tagline and buttons centred over a large
+// screenshot of the app, so the first thing a visitor sees is the product.
+// `heroNote` (a line of facts under the buttons) and `heroCaption` (under the
+// screenshot) are frontmatter fields this site adds (src/content.config.ts).
+import { Image } from 'astro:assets';
+import { LinkButton } from '@astrojs/starlight/components';
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { title = data.title, tagline, image, actions = [] } = data.hero || {};
+const shot = image && 'file' in image ? image.file : undefined;
+const { heroNote, heroCaption } = data;
+---
+
+<div class="hero nl-hero">
+	<div class="nl-hero__copy">
+		<h1 id="_top" data-page-title set:html={title} />
+		{tagline && <div class="tagline" set:html={tagline} />}
+		{
+			actions.length > 0 && (
+				<div class="nl-hero__actions">
+					{actions.map(({ attrs: { class: className, ...attrs } = {}, icon, link: href, text, variant }) => (
+						<LinkButton {href} {variant} icon={icon?.name} class:list={[className]} {...attrs}>
+							{text}
+						</LinkButton>
+					))}
+				</div>
+			)
+		}
+		{heroNote && <p class="nl-hero__note" set:html={heroNote} />}
+	</div>
+	{
+		shot && (
+			<figure class="nl-hero__shot">
+				<Image
+					src={shot}
+					alt={image?.alt ?? ''}
+					widths={[800, 1280, 1920, 2560]}
+					sizes="(min-width: 72rem) 72rem, 100vw"
+					loading="eager"
+					fetchpriority="high"
+				/>
+				{heroCaption && <figcaption>{heroCaption}</figcaption>}
+			</figure>
+		)
+	}
+</div>

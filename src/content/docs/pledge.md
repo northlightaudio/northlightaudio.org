@@ -1,4 +1,5 @@
 ---
+template: splash
 title: The Northlight pledge
 description: What Northlight believes, and the promises the project makes to everyone who uses it.
 ---

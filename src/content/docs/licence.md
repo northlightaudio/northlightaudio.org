@@ -1,4 +1,5 @@
 ---
+template: splash
 title: Licence
 description: Northlight is free software under the GNU Affero General Public License version 3.
 ---

@@ -17,19 +17,395 @@ h1#_top {
 		linear-gradient(to bottom, color-mix(in srgb, var(--nl-overcast) 6%, var(--sl-color-black)) 0%, var(--sl-color-black) 55%);
 }
 
-.hero h1 {
-	font-size: clamp(2.4rem, 6vw, 3.8rem);
+/* ----- The home page hero (components/Hero.astro): the headline centred over a large
+   screenshot, with a faint moonlit glow behind the app. ----- */
+
+.nl-hero {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: clamp(2.5rem, 5vw, 3.75rem);
+	padding-block: clamp(2rem, 7vh, 5rem) 1rem;
+}
+
+.nl-hero__copy {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.25rem;
+	max-width: 46rem;
+	text-align: center;
+}
+
+.nl-hero h1 {
+	color: var(--sl-color-white);
+	font-size: clamp(2.6rem, 7vw, 4.75rem);
 	font-weight: 420;
-	line-height: 1.05;
+	line-height: 1.02;
+	letter-spacing: -0.02em;
 }
 
-.hero .tagline {
+.nl-hero .tagline {
+	max-width: 38rem;
 	color: var(--sl-color-gray-2);
-	max-width: 34rem;
+	font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+	line-height: 1.55;
 }
 
-.hero img {
-	width: min(16rem, 55vw);
+.nl-hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.75rem;
+	margin-top: 0.5rem;
+}
+
+.nl-hero__actions .sl-link-button {
+	padding: 0.85rem 1.5rem;
+	font-size: var(--sl-text-base);
+}
+
+.nl-hero__note {
+	margin: 0;
+	color: var(--nl-text-tertiary);
+	font-size: var(--sl-text-sm);
+}
+
+.nl-hero__shot {
+	position: relative;
+	width: 100%;
+	margin: 0;
+}
+
+.nl-hero__shot::before {
+	content: '';
+	position: absolute;
+	inset: -12% -8% 30%;
+	z-index: -1;
+	background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--nl-overcast) 16%, transparent), transparent 65%);
+	pointer-events: none;
+}
+
+.nl-hero__shot img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border: 1px solid var(--nl-line-strong);
+	border-radius: var(--nl-radius-lg);
+	box-shadow:
+		0 2.5rem 5rem -1.5rem rgb(0 0 0 / 0.75),
+		0 0 0 1px rgb(0 0 0 / 0.4);
+}
+
+.nl-hero__shot figcaption {
+	margin-top: 1rem;
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-sm);
+	text-align: center;
+}
+
+/* Pages other than the home page and the manual: one readable column, no sidebar. */
+html:not([data-has-sidebar]):not([data-has-hero]) {
+	--sl-content-width: 50rem;
+}
+
+/* ----- The site header (components/Header.astro) ----- */
+
+.page > .header {
+	background: color-mix(in srgb, var(--sl-color-black) 82%, transparent);
+	backdrop-filter: blur(14px) saturate(1.2);
+}
+
+.nl-header {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	height: 100%;
+}
+
+.nl-header__nav {
+	display: none;
+}
+
+.nl-header__nav ul {
+	display: flex;
+	gap: 0.25rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nl-header__nav a {
+	display: block;
+	padding: 0.45rem 0.75rem;
+	border-radius: var(--nl-radius-sm);
+	color: var(--nl-text-secondary);
+	font-size: var(--sl-text-sm);
+	font-weight: 500;
+	text-decoration: none;
+	transition:
+		color 120ms ease-out,
+		background 120ms ease-out;
+}
+
+.nl-header__nav a:hover {
+	background: var(--nl-surface-1);
+	color: var(--nl-text-primary);
+}
+
+.nl-header__nav a[aria-current='page'] {
+	color: var(--nl-text-primary);
+	box-shadow: inset 0 -2px 0 var(--nl-overcast);
+	border-radius: 0;
+}
+
+.nl-header__end {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin-inline-start: auto;
+}
+
+/* Search as a single button: the field is a click (or Ctrl K) away. */
+.nl-header site-search button[data-open-modal] {
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	padding: 0;
+	font-size: 1rem;
+}
+
+.nl-header site-search button[data-open-modal] > :not(svg) {
+	display: none !important;
+}
+
+.nl-header__icon {
+	display: flex;
+	padding: 0.4rem;
+	color: var(--nl-text-secondary);
+	font-size: 1.15rem;
+	transition: color 120ms ease-out;
+}
+
+.nl-header__icon:hover {
+	color: var(--nl-text-primary);
+}
+
+.nl-header .nl-header__download {
+	display: none;
+	padding: 0.55rem 1rem;
+	text-decoration: none;
+}
+
+@media (min-width: 40rem) {
+	.nl-header .nl-header__download {
+		display: inline-flex;
+	}
+}
+
+@media (min-width: 50rem) {
+	.nl-header__nav {
+		display: block;
+	}
+}
+
+/* The menu on narrow screens (components/SiteMenu.astro), and the same links at
+   the foot of the manual's sidebar menu (components/MobileMenuFooter.astro). */
+.nl-menu-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	padding: 0;
+	border: 0;
+	border-radius: var(--nl-radius-sm);
+	background: linear-gradient(to bottom, var(--nl-control-top), var(--nl-control-bottom));
+	box-shadow:
+		inset 0 1px 0 var(--nl-control-highlight),
+		var(--nl-control-shadow);
+	color: var(--nl-text-primary);
+	font-size: 1.1rem;
+	cursor: pointer;
+}
+
+.nl-menu-button:has(+ :popover-open) {
+	background: var(--nl-accent-subtle);
+	box-shadow: none;
+	color: var(--nl-overcast);
+}
+
+.nl-menu-button:has(+ :popover-open) .nl-menu-button__open,
+.nl-menu-button:not(:has(+ :popover-open)) .nl-menu-button__close {
+	display: none;
+}
+
+.nl-site-menu {
+	position: fixed;
+	inset: var(--sl-nav-height) 0 auto 0;
+	width: 100%;
+	max-width: none;
+	margin: 0;
+	padding: 0.75rem var(--sl-nav-pad-x) 1.5rem;
+	border: 0;
+	border-bottom: 1px solid var(--nl-line-strong);
+	background: var(--sl-color-black);
+	color: inherit;
+	box-shadow: 0 1.5rem 3rem -1rem rgb(0 0 0 / 0.6);
+}
+
+@media (min-width: 50rem) {
+	.nl-menu-button,
+	.nl-site-menu {
+		display: none !important;
+	}
+}
+
+.nl-site-menu ul,
+.nl-menu-footer ul {
+	display: grid;
+	gap: 0.125rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nl-site-menu a,
+.nl-menu-footer a {
+	display: block;
+	padding: 0.65rem 0.75rem;
+	border-radius: var(--nl-radius-sm);
+	color: var(--nl-text-primary);
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.nl-site-menu a:hover,
+.nl-menu-footer a:hover {
+	background: var(--nl-surface-2);
+}
+
+.nl-site-menu a[aria-current='page'],
+.nl-menu-footer a[aria-current='page'] {
+	background: var(--nl-accent-subtle);
+	color: var(--nl-overcast);
+}
+
+.nl-menu-footer {
+	padding-block: 0.75rem 1.5rem;
+	border-top: 1px solid var(--nl-line-subtle);
+}
+
+@media (min-width: 50rem) {
+	.nl-menu-footer {
+		display: none;
+	}
+}
+
+/* ----- The site footer (components/Footer.astro): a darker band across the whole
+   width, down to the bottom of the window. The border image paints the band
+   outside the footer's box without making the page any wider. ----- */
+
+:root {
+	--sl-main-pad: 0;
+}
+
+.nl-footer {
+	position: relative;
+	margin-top: 6rem;
+	padding-block: 3.5rem 2.5rem;
+	border-image: linear-gradient(color-mix(in srgb, var(--nl-moon) 7%, var(--nl-canvas)) 0 1px, var(--nl-canvas) 1px)
+		fill 0 // 0 100vmax 100vmax;
+}
+
+.nl-footer__grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 2.5rem 2rem;
+}
+
+.nl-footer__brand {
+	grid-column: 1 / -1;
+}
+
+@media (min-width: 56rem) {
+	.nl-footer__grid {
+		grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+	}
+
+	.nl-footer__brand {
+		grid-column: auto;
+	}
+}
+
+.nl-footer__logo {
+	display: inline-block;
+}
+
+.nl-footer__logo img {
+	display: block;
+	width: auto;
+	height: 2rem;
+}
+
+.nl-footer__brand p {
+	max-width: 22rem;
+	margin-top: 1rem;
+	color: var(--nl-text-tertiary);
+	font-size: var(--sl-text-sm);
+	line-height: 1.6;
+}
+
+.nl-footer h2 {
+	margin: 0 0 1rem;
+	color: var(--nl-text-tertiary);
+	font-family: var(--nl-font-ui);
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.nl-footer ul {
+	display: grid;
+	gap: 0.65rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nl-footer a {
+	color: var(--nl-text-secondary);
+	font-size: var(--sl-text-sm);
+	text-decoration: none;
+	transition: color 120ms ease-out;
+}
+
+.nl-footer a:hover {
+	color: var(--nl-text-primary);
+}
+
+.nl-footer__legal {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 0.5rem 2rem;
+	margin-top: 3.5rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--nl-line-subtle);
+	color: var(--nl-text-tertiary);
+	font-size: var(--sl-text-xs);
+}
+
+.nl-footer__legal p {
+	margin: 0;
+}
+
+.nl-footer__legal a {
+	font-size: inherit;
+	text-decoration: underline;
+	text-decoration-color: var(--nl-line-strong);
+	text-underline-offset: 0.2em;
 }
 
 /* ----- Controls and panels, after the app's design system (docs/design/02-design-system.md):
@@ -99,10 +475,6 @@ h1#_top {
 .sl-link-button:is(.secondary, .minimal):active {
 	background: linear-gradient(to bottom, var(--nl-control-bottom), var(--nl-control-top));
 	box-shadow: var(--nl-pressed-inset);
-}
-
-.hero .sl-flex.actions {
-	gap: 0.75rem;
 }
 
 /* Panels: the card surface with a faint line, the radius of the app's cards. */

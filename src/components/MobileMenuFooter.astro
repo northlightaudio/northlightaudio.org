@@ -1,0 +1,27 @@
+---
+// The foot of Starlight's sidebar menu on narrow screens (manual pages only): the
+// site's main links, which the header hides at that width.
+import { github, isCurrent, primaryNav } from '../nav';
+
+const { pathname } = Astro.url;
+const links = [
+	...primaryNav,
+	{ label: 'Download', href: '/download/' },
+	{ label: 'Press kit', href: '/press/' },
+	{ label: 'GitHub', href: github },
+];
+---
+
+<nav class="nl-menu-footer" aria-label="Site">
+	<ul>
+		{
+			links.map(({ label, href }) => (
+				<li>
+					<a href={href} aria-current={isCurrent(href, pathname) ? 'page' : undefined}>
+						{label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>

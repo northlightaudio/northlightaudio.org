@@ -1,0 +1,46 @@
+---
+// The site header: the logo, the main links, search, GitHub and a Download button,
+// in place of Starlight's documentation header (a wide search field and icons).
+// Below 50rem the links move into a menu: Starlight's sidebar menu on manual pages
+// (MobileMenuFooter.astro adds them there), and SiteMenu on every other page.
+import Search from '@astrojs/starlight/components/Search.astro';
+import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
+import { Icon } from '@astrojs/starlight/components';
+import SiteMenu from './SiteMenu.astro';
+import { github, isCurrent, primaryNav } from '../nav';
+
+const { hasSidebar } = Astro.locals.starlightRoute;
+const { pathname } = Astro.url;
+---
+
+<div class="nl-header">
+	<SiteTitle />
+	<nav class="nl-header__nav" aria-label="Main">
+		<ul>
+			{
+				primaryNav.map(({ label, href }) => (
+					<li>
+						<a href={href} aria-current={isCurrent(href, pathname) ? 'page' : undefined}>
+							{label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+	<div class="nl-header__end print:hidden">
+		<Search />
+		<a class="nl-header__icon" href={github}>
+			<span class="sr-only">Northlight on GitHub</span>
+			<Icon name="github" />
+		</a>
+		<a
+			class="sl-link-button primary nl-header__download"
+			href="/download/"
+			aria-current={isCurrent('/download/', pathname) ? 'page' : undefined}
+		>
+			Download
+		</a>
+		{!hasSidebar && <SiteMenu />}
+	</div>
+</div>
