@@ -9,6 +9,8 @@ nobody needs permission to start.
 
 ## Ways to help
 
+- **Come and say hello.** The [Northlight Discord](https://discord.gg/dkW3NSenhP) is
+  where people chat about the project, share what they've made and get help.
 - **Use it and tell us what happens.** A clear bug report is one of the most useful
   things anyone can give. Open an
   [issue](https://github.com/northlightaudio/northlight/issues) with the bug report form.

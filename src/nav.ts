@@ -6,6 +6,7 @@ export interface NavLink {
 }
 
 export const github = 'https://github.com/northlightaudio/northlight';
+export const discord = 'https://discord.gg/dkW3NSenhP';
 
 /** The header's links. Download is a button beside them. */
 export const primaryNav: NavLink[] = [
@@ -39,6 +40,7 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
 		title: 'Community',
 		links: [
 			{ label: 'Join in', href: '/contributing/' },
+			{ label: 'Discord', href: discord },
 			{ label: 'Source code', href: github },
 			{ label: 'Report a bug', href: `${github}/issues` },
 			{ label: 'Discussions', href: `${github}/discussions` },

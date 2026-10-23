@@ -7,7 +7,7 @@ import Search from '@astrojs/starlight/components/Search.astro';
 import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
 import { Icon } from '@astrojs/starlight/components';
 import SiteMenu from './SiteMenu.astro';
-import { github, isCurrent, primaryNav } from '../nav';
+import { discord, github, isCurrent, primaryNav } from '../nav';
 
 const { hasSidebar } = Astro.locals.starlightRoute;
 const { pathname } = Astro.url;
@@ -30,6 +30,10 @@ const { pathname } = Astro.url;
 	</nav>
 	<div class="nl-header__end print:hidden">
 		<Search />
+		<a class="nl-header__icon" href={discord}>
+			<span class="sr-only">Chat with us on Discord</span>
+			<Icon name="discord" />
+		</a>
 		<a class="nl-header__icon" href={github}>
 			<span class="sr-only">Northlight on GitHub</span>
 			<Icon name="github" />

@@ -2,7 +2,7 @@
 // The menu button and menu for narrow screens on pages without a sidebar. Like
 // Starlight's sidebar menu it uses the popover API, so it works without JavaScript.
 import { Icon } from '@astrojs/starlight/components';
-import { github, isCurrent, primaryNav } from '../nav';
+import { discord, github, isCurrent, primaryNav } from '../nav';
 
 const { pathname } = Astro.url;
 const links = [...primaryNav, { label: 'Download', href: '/download/' }, { label: 'Press kit', href: '/press/' }];
@@ -23,6 +23,7 @@ const links = [...primaryNav, { label: 'Download', href: '/download/' }, { label
 				</li>
 			))
 		}
+		<li><a href={discord}>Discord</a></li>
 		<li><a href={github}>GitHub</a></li>
 	</ul>
 </nav>
