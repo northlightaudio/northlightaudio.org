@@ -1,0 +1,28 @@
+---
+// One of the app's hero effects: its editor, its name, what kind of effect it is,
+// what it's for, and a few lines (the slot) on what it does. The screenshot opens
+// the full-size image.
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+	name: string;
+	kind: string;
+	use: string;
+	src: ImageMetadata;
+	alt: string;
+}
+const { name, kind, use, src, alt } = Astro.props;
+---
+
+<article class="nl-effect">
+	<a class="nl-effect__shot" href={src.src} aria-label={`${name}, full size`}>
+		<Image src={src} alt={alt} widths={[640, 960, 1440]} sizes="(min-width: 56rem) 36rem, 100vw" />
+	</a>
+	<div class="nl-effect__text">
+		<p class="nl-effect__kind">{kind}</p>
+		<h3>{name}</h3>
+		<p class="nl-effect__use">{use}</p>
+		<slot />
+	</div>
+</article>

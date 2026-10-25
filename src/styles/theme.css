@@ -802,6 +802,103 @@ body {
 	}
 }
 
+/* Hero effects: a card for each, its editor above what it's for. The editors are
+   all shapes, so each sits in a frame of one size on the app's own canvas. */
+.nl-effects {
+	display: grid;
+	gap: 1.5rem;
+	margin-block: 2rem 3.5rem;
+}
+
+.sl-markdown-content .nl-effects > * {
+	margin: 0;
+}
+
+.nl-effect {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	background: var(--nl-surface-1);
+	border: 1px solid var(--nl-line-subtle);
+	border-radius: var(--nl-radius-lg);
+}
+
+.nl-effect__shot {
+	display: block;
+	background: var(--nl-canvas);
+	border-bottom: 1px solid var(--nl-line-subtle);
+}
+
+.nl-effect__shot img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 5 / 3;
+	object-fit: contain;
+	padding: 0.75rem;
+	transition: opacity 120ms ease-out;
+}
+
+.nl-effect__shot:hover img {
+	opacity: 0.9;
+}
+
+.nl-effect__text {
+	padding: 1.1rem 1.25rem 1.3rem;
+}
+
+.sl-markdown-content .nl-effect__text > * {
+	margin: 0;
+}
+
+.sl-markdown-content .nl-effect__text > * + * {
+	margin-top: 0.5rem;
+}
+
+.nl-effect__kind {
+	color: var(--nl-text-tertiary);
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.sl-markdown-content .nl-effect h3 {
+	margin-top: 0.25rem;
+}
+
+.nl-effect__use {
+	color: var(--nl-text-primary);
+}
+
+.nl-effect__text > :not(.nl-effect__kind, h3, .nl-effect__use) {
+	color: var(--nl-text-secondary);
+	font-size: var(--sl-text-sm);
+}
+
+@media (min-width: 56rem) {
+	.nl-effects {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	/* An odd one out at the end takes the whole row, its text beside it. */
+	.nl-effect:last-child:nth-child(odd) {
+		grid-column: 1 / -1;
+		display: grid;
+		grid-template-columns: 3fr 2fr;
+	}
+
+	.nl-effect:last-child:nth-child(odd) .nl-effect__shot {
+		border-bottom: 0;
+		border-right: 1px solid var(--nl-line-subtle);
+	}
+
+	.nl-effect:last-child:nth-child(odd) .nl-effect__text {
+		align-self: center;
+		padding: 1.5rem 1.75rem;
+	}
+}
+
 /* The mobile menu button: a control, like the search button beside it. */
 .sl-menu-button {
 	background: linear-gradient(to bottom, var(--nl-control-top), var(--nl-control-bottom));

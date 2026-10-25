@@ -102,6 +102,21 @@ Keep (Join-Path $mixer 'mixer.png') 'mixer.png'
 Keep (Join-Path $editor 'channel-strip.png') 'channel-strip.png'
 Keep (Join-Path $editor 'instrument.png') 'pulsar-drum-synth.png'
 
+# The hero effects, each on the master so its displays have the whole song to show.
+# The demo song is written fresh for each run, so each gets its own folder.
+$effects = [ordered]@{
+    'glue' = 'glue-compressor'; 'orbit' = 'orbit'; 'patina' = 'patina'; 'tapeecho' = 'tape-echo'
+    'bloom' = 'bloom'; 'vesper' = 'vesper'; 'amp' = 'corona'
+}
+foreach ($type in $effects.Keys) {
+    $effectSong = "`"$(Join-Path $work "demo-$type\Northern Drift.northlight")`""
+    $shot = Capture $type @('--demo-song', $effectSong, '--master-insert', "northlight.$type",
+        '--insert-editor', "northlight.$type", '--play') $Seconds
+    $window = Get-ChildItem $shot -Filter 'window-*.png' | Select-Object -First 1
+    if (-not $window) { throw "The '$type' capture has no editor window." }
+    Keep $window.FullName "$($effects[$type]).png"
+}
+
 if ($Vocal) {
     if (-not (Test-Path $Vocal)) { throw "No such file: $Vocal" }
     $flags = @('--import', "`"$((Resolve-Path $Vocal).Path)`"")
