@@ -44,12 +44,22 @@ if (-not $Exe -or -not (Test-Path $Exe)) { throw 'No Northlight.exe found. Build
 Write-Output "Capturing with $Exe"
 
 # The status bar shows the capturing machine's audio device, so it is trimmed off the
-# window shot. Its height comes from the design tokens.
+# window shot. An effect's editor window is cropped to the effect's own body, without
+# the window's title, presets, Bypass, Mix and latency line (InsertEditor::resized in
+# the app). The sizes come from the design tokens.
 $statusBar = 24
+$space = @{ sm = 8; md = 12; lg = 16 }
+$control = 28; $controlCompact = 24
 if ($App -and (Test-Path (Join-Path $App 'docs\design\tokens.json'))) {
     $tokens = Get-Content -Raw (Join-Path $App 'docs\design\tokens.json') | ConvertFrom-Json
     if ($tokens.size.statusBar) { $statusBar = [int]$tokens.size.statusBar }
+    foreach ($k in @('sm', 'md', 'lg')) { if ($tokens.space.$k) { $space[$k] = [int]$tokens.space.$k } }
+    if ($tokens.size.control) { $control = [int]$tokens.size.control }
+    if ($tokens.size.controlCompact) { $controlCompact = [int]$tokens.size.controlCompact }
 }
+$editorTop = $space.md + $control + $space.sm + $controlCompact + $space.md
+$editorBottom = $space.md + $controlCompact
+$editorSide = $space.lg
 $scale = 2
 
 $work = Join-Path $env:TEMP "northlight-screenshots-$PID"
@@ -75,17 +85,22 @@ function Capture([string]$name, [string[]]$flags, [int]$wait) {
 }
 
 Add-Type -AssemblyName System.Drawing
-# Copies a capture into the site, optionally trimming pixels off the bottom.
-function Keep([string]$from, [string]$to, [int]$trimBottom = 0) {
+# Copies a capture into the site, optionally trimming pixels off the bottom, the top
+# and both sides.
+function Keep([string]$from, [string]$to, [int]$trimBottom = 0, [int]$trimTop = 0, [int]$trimSides = 0) {
     if (-not (Test-Path $from)) { throw "Missing capture: $from" }
     $target = Join-Path $shots $to
-    if ($trimBottom -le 0) {
+    if ($trimBottom -le 0 -and $trimTop -le 0 -and $trimSides -le 0) {
         Copy-Item $from $target -Force
     } else {
         $image = [System.Drawing.Image]::FromFile($from)
-        $bitmap = New-Object System.Drawing.Bitmap $image.Width, ($image.Height - $trimBottom)
+        $width = $image.Width - 2 * $trimSides
+        $height = $image.Height - $trimTop - $trimBottom
+        $bitmap = New-Object System.Drawing.Bitmap $width, $height
         $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
-        $graphics.DrawImage($image, 0, 0)
+        $graphics.DrawImage($image, (New-Object System.Drawing.Rectangle 0, 0, $width, $height),
+            (New-Object System.Drawing.Rectangle $trimSides, $trimTop, $width, $height),
+            [System.Drawing.GraphicsUnit]::Pixel)
         $graphics.Dispose(); $image.Dispose()
         $bitmap.Save($target, [System.Drawing.Imaging.ImageFormat]::Png)
         $bitmap.Dispose()
@@ -114,7 +129,7 @@ foreach ($type in $effects.Keys) {
         '--insert-editor', "northlight.$type", '--play') $Seconds
     $window = Get-ChildItem $shot -Filter 'window-*.png' | Select-Object -First 1
     if (-not $window) { throw "The '$type' capture has no editor window." }
-    Keep $window.FullName "$($effects[$type]).png"
+    Keep $window.FullName "$($effects[$type]).png" ($editorBottom * $scale) ($editorTop * $scale) ($editorSide * $scale)
 }
 
 if ($Vocal) {
