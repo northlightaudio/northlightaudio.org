@@ -14,6 +14,7 @@ export const primaryNav: NavLink[] = [
 	{ label: 'Manual', href: '/manual/' },
 	{ label: 'The pledge', href: '/pledge/' },
 	{ label: 'Join in', href: '/contributing/' },
+	{ label: 'Press kit', href: '/press/' },
 ];
 
 /** The footer's columns. */
