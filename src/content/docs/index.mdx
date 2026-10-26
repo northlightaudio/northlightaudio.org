@@ -150,35 +150,32 @@ the best takes, mix the song and export the master without leaving it.
 
 ## Effects with a character of their own
 
-Alongside the everyday EQs, compressors, reverbs and delays, Northlight has seven effects
-built to give a sound its character. Each has its own face, and each shows you what it's
-doing to the sound as it plays.
+Besides the everyday EQs, compressors, reverbs and delays, Northlight has seven effects
+with faces of their own. They show you what they're doing to the sound as it plays.
 
 <div class="nl-effects">
 	<Effect
 		name="Glue Compressor"
 		kind="Bus compressor"
-		use="Pulls a mix, or a group of drums or vocals, together into one performance."
+		use="Pulls a mix, or a group of drums or vocals, together."
 		src={glue}
 		alt="The Glue Compressor: a ribbon of the last three seconds of the mix going in and coming out, a gain reduction arc, and stepped Ratio, Attack and Release selectors."
 	>
-		A console-style bus compressor, with stepped ratio, attack and release and an Auto
-		release that recovers quickly from a hit and slowly from held compression. A sidechain
-		high-pass stops the low end pumping it, and Mix blends in parallel compression. Instead
-		of a transfer curve, it draws the gap between the music's body and its peaks, so you can
-		see how much punch you are keeping.
+		Stepped controls, as on a mixing console, and an Auto release that recovers quickly from
+		a hit and slowly from held compression. Mix blends in parallel compression. Instead of a
+		transfer curve, its display shows how far it pulls the peaks down towards the body of the
+		sound, so you can see how much punch you're keeping.
 	</Effect>
 	<Effect
 		name="Orbit"
 		kind="Tape machine"
-		use="Adds a tape machine's warmth and soft compression to a bus or the master."
+		use="Warmth and soft compression for a bus or the master."
 		src={orbit}
 		alt="Orbit, a studio reel-to-reel tape machine: two metal reels, a tape time counter, VU meters and controls for speed, EQ, level and tape type."
 	>
 		The tape itself is modelled, so loud passages compress softly and the highs saturate first.
-		Choose the tape speed, the EQ standard, how hard to hit the tape and which tape to use,
-		then set the bias, hiss and flutter. Link keeps the loudness steady while you drive the
-		input harder.
+		Choose the tape speed, the type of tape and how hard you hit it, and add hiss and flutter
+		if you want them.
 	</Effect>
 	<Effect
 		name="Patina"
@@ -187,11 +184,8 @@ doing to the sound as it plays.
 		src={patina}
 		alt="Patina, a weathered steel rack unit with six stages, Heat, Chamber, Drift, Grain, Wear and Crush, each with an amber display, and a large Age knob from New to Ruined."
 	>
-		Six stages age a sound in different ways: Heat drives it into tube, tape, iron or fuzz;
-		Chamber adds a room, spring or plate; Drift adds wow and flutter; Grain adds vinyl crackle,
-		hiss or hum; Wear takes away highs and adds dropouts; Crush lowers the bits and sample
-		rate. One Age knob takes the whole thing from new to ruined, and Breath lets each stage
-		wander over time.
+		Six stages age a sound in different ways: drive, a room, wow and flutter, crackle and hiss,
+		worn-out highs, and fewer bits. One Age knob takes all of it from new to ruined.
 	</Effect>
 	<Effect
 		name="Tape Echo"
@@ -200,21 +194,20 @@ doing to the sound as it plays.
 		src={tapeEcho}
 		alt="Tape Echo, a cream and green 1970s-style unit with a tape loop running past a record head and four playback heads, a VU meter, and large Heads, Repeat Rate, Intensity and Echo Volume knobs."
 	>
-		A tape loop with four playback heads, in eight combinations, and a spring reverb. Turn the
-		feedback past 100% and it runs away into oscillation. Change the repeat rate and the
-		echoes bend in pitch as the motor settles. Wow, flutter and age
-		wear the tape.
+		A tape loop with four playback heads and a spring reverb. Turn the feedback past 100% and
+		it runs away into oscillation. Change the repeat rate and the echoes bend in pitch as the
+		motor settles.
 	</Effect>
 	<Effect
 		name="Bloom"
 		kind="Effect reverb"
-		use="Turns a sound into huge, frozen, shimmering or swelling space."
+		use="Reverb as an effect, in spaces far bigger than any real room."
 		src={bloom}
 		alt="Bloom: a round display of the reverb tail as rings, with a Freeze button in the middle, and controls for Decay, Size, Shimmer and Swell."
 	>
-		Decays up to a minute in spaces far bigger than any real room. Freeze holds the tail for
-		good, Shimmer pitch-shifts it inside the reverb so it climbs as it rings, and Swell builds
-		it up like a reversed reverb. Gate cuts it short and Duck tucks it under the dry sound.
+		Tails last up to a minute. Freeze holds one for good, Shimmer makes it climb in pitch as
+		it rings, and Swell fades it in like a reversed reverb. Gate cuts it short and Duck tucks
+		it under the dry sound.
 	</Effect>
 	<Effect
 		name="Vesper"
@@ -224,20 +217,19 @@ doing to the sound as it plays.
 		alt="Vesper: a dusk-coloured reverb with lights for Singing, Kept Out and Line End, a display of the tail against the voice, and controls for Decay, Clarity, Duck and Ends."
 	>
 		Vesper listens to the singing. It keeps consonants, sibilance and breaths out of the
-		reverb, lowers the tail while the singer sings, and lets it bloom at the end of each line.
-		With lookahead on, it hears what's coming and throws the last word of a line. Catch holds
-		the tail as a pad under the next phrase.
+		reverb, lowers the tail while the singer sings, and lifts it at the end of each line.
+		Catch holds the tail as a pad under the next phrase.
 	</Effect>
 	<Effect
 		name="Corona"
 		kind="Guitar amp"
-		use="Plays a guitar or bass through a classic two-twelve combo, no amp needed."
+		use="Plays a guitar or bass through a classic two-twelve combo."
 		src={corona}
 		alt="Corona, a tube guitar amp with a gold control panel for preamp, reverb, tremolo and power, a woven grille cloth and a Corona badge."
 	>
 		Modelled stage by stage on a 1960s American combo with spring reverb and tremolo, from the
-		first tube to the speaker. Turn the cabinet page for five cabinets or your own impulse
-		response, and place two mics on the speaker: dynamic, ribbon or condenser, near or far.
+		first tube to the speaker. On its cabinet page, choose one of five cabinets or load your
+		own impulse response, and place two mics on the speaker.
 	</Effect>
 </div>
 
@@ -245,18 +237,14 @@ doing to the sound as it plays.
 	<div>
 		### Guitar pedals
 
-		Put Corona at the end of a pedalboard. Northlight has five stompboxes voiced for guitar
-		and bass, each with the few controls a pedal has: Polaris, a chromatic tuner, from a
-		five-string bass's low B up; Gravity, a compressor and sustainer; Flare, a distortion
-		with silicon, LED or no clipping diodes; Tide, a chorus and vibrato that keeps the low
-		end solid on bass; and Comet, an analog delay whose repeats fade into a warm smear, or
-		run away if you let them. Click the footswitch, or press Space, to stomp on one. None of
-		them adds latency, so you can play through them live.
+		Put Corona at the end of a pedalboard. Northlight has five stompboxes for guitar and bass:
+		Polaris, a tuner; Gravity, a compressor; Flare, a distortion; Tide, a chorus; and Comet,
+		an analog delay. Each has only the few knobs a pedal has, and none adds latency, so you
+		can play through them live.
 	</div>
 	<Screenshot
 		src={pedals}
 		alt="Five guitar pedals side by side on a pedalboard: Polaris, a graphite tuner showing A; Gravity, a blue compressor; Flare, an orange distortion; Tide, a sea-green chorus; and Comet, a dark green analog delay."
-		caption="Polaris, Gravity, Flare, Tide and Comet, in the order they'd sit on a pedalboard."
 	/>
 </div>
 
