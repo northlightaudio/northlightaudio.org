@@ -132,6 +132,58 @@ foreach ($type in $effects.Keys) {
     Keep $window.FullName "$($effects[$type]).png" ($editorBottom * $scale) ($editorTop * $scale) ($editorSide * $scale)
 }
 
+# The guitar pedals, as one pedalboard: all five open at once, each editor cut to its
+# patch of carpet (the face is scaled to fit and centred, with the window's canvas
+# round it), then set side by side in signal order.
+$pedals = @('polaris', 'gravity', 'flare', 'tide', 'comet')
+$pedalSong = "`"$(Join-Path $work 'demo-pedals\Northern Drift.northlight')`""
+$flags = @('--demo-song', $pedalSong)
+foreach ($p in $pedals) { $flags += @('--master-insert', "northlight.$p") }
+foreach ($p in $pedals) { $flags += @('--insert-editor', "northlight.$p") }
+$board = Capture 'pedals' ($flags + @('--play')) $Seconds
+
+# The carpet's bounds in an editor's body: where the pixels stop matching the canvas,
+# found along the body's middle row and column.
+function CarpetBounds([System.Drawing.Bitmap]$image) {
+    $left = $editorSide * $scale; $top = $editorTop * $scale
+    $right = $image.Width - $left - 1; $bottom = $image.Height - $editorBottom * $scale - 1
+    $canvas = $image.GetPixel($left + 2, $top + 2)
+    $differs = {
+        param($x, $y)
+        $c = $image.GetPixel($x, $y)
+        [Math]::Abs($c.R - $canvas.R) + [Math]::Abs($c.G - $canvas.G) + [Math]::Abs($c.B - $canvas.B) -gt 12
+    }
+    $midY = [int](($top + $bottom) / 2); $midX = [int](($left + $right) / 2)
+    $x0 = $left; while ($x0 -lt $right -and -not (& $differs $x0 $midY)) { $x0++ }
+    $x1 = $right; while ($x1 -gt $x0 -and -not (& $differs $x1 $midY)) { $x1-- }
+    $y0 = $top; while ($y0 -lt $bottom -and -not (& $differs $midX $y0)) { $y0++ }
+    $y1 = $bottom; while ($y1 -gt $y0 -and -not (& $differs $midX $y1)) { $y1-- }
+    return New-Object System.Drawing.Rectangle $x0, $y0, ($x1 - $x0 + 1), ($y1 - $y0 + 1)
+}
+
+$parts = foreach ($p in $pedals) {
+    $file = Get-ChildItem $board -Filter "window-*-$p.png" | Select-Object -First 1
+    if (-not $file) { throw "The pedals capture has no $p window." }
+    $image = New-Object System.Drawing.Bitmap $file.FullName
+    [pscustomobject]@{ Image = $image; Bounds = CarpetBounds $image }
+}
+$height = [int]($parts | ForEach-Object { $_.Bounds.Height } | Measure-Object -Minimum).Minimum
+$width = [int]($parts | ForEach-Object { $_.Bounds.Width } | Measure-Object -Sum).Sum
+$pedalboard = New-Object System.Drawing.Bitmap $width, $height
+$graphics = [System.Drawing.Graphics]::FromImage($pedalboard)
+$x = 0
+foreach ($part in $parts) {
+    $b = $part.Bounds
+    $graphics.DrawImage($part.Image, (New-Object System.Drawing.Rectangle $x, 0, $b.Width, $height),
+        (New-Object System.Drawing.Rectangle $b.X, $b.Y, $b.Width, $height), [System.Drawing.GraphicsUnit]::Pixel)
+    $x += $b.Width
+    $part.Image.Dispose()
+}
+$graphics.Dispose()
+$pedalboard.Save((Join-Path $shots 'pedals.png'), [System.Drawing.Imaging.ImageFormat]::Png)
+$pedalboard.Dispose()
+Write-Host '  -> src/assets/screenshots/pedals.png'
+
 if ($Vocal) {
     if (-not (Test-Path $Vocal)) { throw "No such file: $Vocal" }
     $flags = @('--import', "`"$((Resolve-Path $Vocal).Path)`"")
