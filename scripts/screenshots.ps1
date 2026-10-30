@@ -8,7 +8,7 @@
 #
 # It needs a build of Northlight with --capture (the app's capture mode): the newest
 # Northlight.exe under the app checkout's build folder, or the one given with -Exe.
-# Each scene opens the demo song, Northern Drift, plays it silently for a few seconds so
+# Each scene opens the demo song, Window Seat, plays it silently for a few seconds so
 # the meters and displays have something to show, and the app saves its window and
 # named parts of it at 2x. Capture mode keeps its own settings, so your layout,
 # plugins and device choice are not used or changed.
@@ -64,7 +64,7 @@ $scale = 2
 
 $work = Join-Path $env:TEMP "northlight-screenshots-$PID"
 New-Item -ItemType Directory -Force $work | Out-Null
-$song = Join-Path $work 'demo\Northern Drift.northlight'
+$song = Join-Path $work 'demo\Window Seat.northlight'
 
 # Runs the app with the flags, waits for it to save its captures and quit, and returns
 # the folder they are in.
@@ -124,7 +124,7 @@ $effects = [ordered]@{
     'bloom' = 'bloom'; 'vesper' = 'vesper'; 'amp' = 'corona'
 }
 foreach ($type in $effects.Keys) {
-    $effectSong = "`"$(Join-Path $work "demo-$type\Northern Drift.northlight")`""
+    $effectSong = "`"$(Join-Path $work "demo-$type\Window Seat.northlight")`""
     $shot = Capture $type @('--demo-song', $effectSong, '--master-insert', "northlight.$type",
         '--insert-editor', "northlight.$type", '--play') $Seconds
     $window = Get-ChildItem $shot -Filter 'window-*.png' | Select-Object -First 1
@@ -136,7 +136,7 @@ foreach ($type in $effects.Keys) {
 # patch of carpet (the face is scaled to fit and centred, with the window's canvas
 # round it), then set side by side in signal order.
 $pedals = @('polaris', 'gravity', 'flare', 'tide', 'comet')
-$pedalSong = "`"$(Join-Path $work 'demo-pedals\Northern Drift.northlight')`""
+$pedalSong = "`"$(Join-Path $work 'demo-pedals\Window Seat.northlight')`""
 $flags = @('--demo-song', $pedalSong)
 foreach ($p in $pedals) { $flags += @('--master-insert', "northlight.$p") }
 foreach ($p in $pedals) { $flags += @('--insert-editor', "northlight.$p") }
@@ -183,6 +183,65 @@ $graphics.Dispose()
 $pedalboard.Save((Join-Path $shots 'pedals.png'), [System.Drawing.Imaging.ImageFormat]::Png)
 $pedalboard.Dispose()
 Write-Host '  -> src/assets/screenshots/pedals.png'
+
+# Lumen and Cirrus, each from its track in the demo song, in a dock tall enough to show
+# its face at full size. The rows count every track, channel and folder in the arrange
+# view. A face narrower or shorter than the dock leaves a plain border, which is cut off.
+function TrimPlain([string]$file) {
+    $image = New-Object System.Drawing.Bitmap $file
+    # A row or column is plain when it is one colour, leaving out the rounded corners
+    # at its ends.
+    $plain = {
+        param([bool]$row, [int]$i)
+        $n = if ($row) { $image.Width } else { $image.Height }
+        $corner = 24
+        $first = if ($row) { $image.GetPixel($corner, $i) } else { $image.GetPixel($i, $corner) }
+        for ($j = $corner; $j -lt $n - $corner; $j += 4) {
+            $c = if ($row) { $image.GetPixel($j, $i) } else { $image.GetPixel($i, $j) }
+            if ([Math]::Abs($c.R - $first.R) + [Math]::Abs($c.G - $first.G) + [Math]::Abs($c.B - $first.B) -gt 12) { return $false }
+        }
+        return $true
+    }
+    $x0 = 0; while ($x0 -lt $image.Width - 1 -and (& $plain $false $x0)) { $x0++ }
+    $x1 = $image.Width - 1; while ($x1 -gt $x0 -and (& $plain $false $x1)) { $x1-- }
+    $y0 = 0; while ($y0 -lt $image.Height - 1 -and (& $plain $true $y0)) { $y0++ }
+    $y1 = $image.Height - 1; while ($y1 -gt $y0 -and (& $plain $true $y1)) { $y1-- }
+    # Where the face's own background carries on past the cut (padding, not the dock),
+    # keep a margin of it.
+    $margin = 32; $c = 4
+    $same = {
+        param($a, $b)
+        [Math]::Abs($a.R - $b.R) + [Math]::Abs($a.G - $b.G) + [Math]::Abs($a.B - $b.B) -le 12
+    }
+    # Each side is checked at a point just inside the kept area.
+    $left = $x0 -gt 0 -and (& $same $image.GetPixel($x0 - 1, $y0 + $c) $image.GetPixel($x0, $y0 + $c))
+    $right = $x1 -lt $image.Width - 1 -and (& $same $image.GetPixel($x1 + 1, $y0 + $c) $image.GetPixel($x1, $y0 + $c))
+    $top = $y0 -gt 0 -and (& $same $image.GetPixel($x0 + $c, $y0 - 1) $image.GetPixel($x0 + $c, $y0))
+    $bottom = $y1 -lt $image.Height - 1 -and (& $same $image.GetPixel($x0 + $c, $y1 + 1) $image.GetPixel($x0 + $c, $y1))
+    if ($left) { $x0 = [Math]::Max(0, $x0 - $margin) }
+    if ($right) { $x1 = [Math]::Min($image.Width - 1, $x1 + $margin) }
+    if ($top) { $y0 = [Math]::Max(0, $y0 - $margin) }
+    if ($bottom) { $y1 = [Math]::Min($image.Height - 1, $y1 + $margin) }
+    $width = $x1 - $x0 + 1; $height = $y1 - $y0 + 1
+    $trimmed = New-Object System.Drawing.Bitmap $width, $height
+    $graphics = [System.Drawing.Graphics]::FromImage($trimmed)
+    $graphics.DrawImage($image, (New-Object System.Drawing.Rectangle 0, 0, $width, $height),
+        (New-Object System.Drawing.Rectangle $x0, $y0, $width, $height), [System.Drawing.GraphicsUnit]::Pixel)
+    $graphics.Dispose(); $image.Dispose()
+    $trimmed.Save($file, [System.Drawing.Imaging.ImageFormat]::Png)
+    $trimmed.Dispose()
+}
+
+$instruments = [ordered]@{ 'lumen' = 8; 'cirrus' = 10 }
+foreach ($name in $instruments.Keys) {
+    $row = $instruments[$name]
+    $instrumentSong = "`"$(Join-Path $work "demo-$name\Window Seat.northlight")`""
+    $shot = Capture $name @('--demo-song', $instrumentSong, '--select-tracks', "$row", "$row",
+        '--panel', 'editor', '--dock-height', '620', '--play') $Seconds
+    $target = Join-Path $shots "$name.png"
+    Keep (Join-Path $shot 'instrument.png') "$name.png"
+    TrimPlain $target
+}
 
 if ($Vocal) {
     if (-not (Test-Path $Vocal)) { throw "No such file: $Vocal" }
