@@ -26,8 +26,22 @@ deploy from GitHub Actions, and point the domain's DNS at GitHub Pages.
 
 ## The manual
 
-The user manual will live in the application's repository, versioned with the code, and
-be pulled into `src/content/docs/manual/` when the site builds.
+The user manual lives in the application repository, in `docs/manual/`, so it's
+versioned with the code (its README there says how to write it). `astro.config.mjs`
+copies it into `src/content/docs/manual/` whenever the site starts or builds
+(`scripts/sync-manual.mjs`), and in `npm run dev` it copies again as you edit the
+manual. The copy isn't committed. It looks for the app checkout at `../northlight` or
+`../aural`; set `NORTHLIGHT_APP_DIR` if it's somewhere else. Without one, the manual is
+a placeholder page. A new section in the manual's `sidebar.json` needs a restart of
+the dev server.
+
+Pages marked `draft: true` show in dev but aren't published, and a section with only
+drafts is left out of the sidebar.
+
+The deploy workflow checks out the app at its latest release's tag, or `main` before
+the first release, and builds the site from that. Run the workflow by hand (Actions,
+Deploy to GitHub Pages, Run workflow) to publish a manual change without a change
+here.
 
 ## Brand
 

@@ -1,6 +1,37 @@
 // @ts-check
+import path from 'node:path';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import { findManual, syncManual } from './scripts/sync-manual.mjs';
+
+// The manual is copied in from the app repository on every start (scripts/sync-manual.mjs).
+// In dev, sections whose pages are all drafts still show, so drafts can be previewed.
+const dev = process.argv.includes('dev');
+const manualSections = syncManual().filter((s) => dev || s.published);
+
+/** Re-copies the manual when it changes in the app repository, while `astro dev` runs. */
+function watchManual() {
+	return {
+		name: 'northlight-manual',
+		hooks: {
+			'astro:server:setup': ({ server, logger }) => {
+				const dir = findManual().dir;
+				if (!dir) return;
+				server.watcher.add(dir);
+				let timer;
+				const resync = (file) => {
+					if (!path.resolve(file).startsWith(path.resolve(dir))) return;
+					clearTimeout(timer);
+					timer = setTimeout(() => {
+						syncManual({ quiet: true });
+						logger.info(`Manual re-synced (${path.relative(dir, file)}). Restart to pick up a new section.`);
+					}, 150);
+				};
+				server.watcher.on('change', resync).on('add', resync).on('unlink', resync);
+			},
+		},
+	};
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,13 +72,17 @@ export default defineConfig({
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/northlightaudio/northlight' }],
 			editLink: { baseUrl: 'https://github.com/northlightaudio/northlightaudio.org/edit/main/' },
 			// Only the manual has a sidebar. The other pages use the splash template and
-			// are reached from the header and footer.
+			// are reached from the header and footer. The sections and their order come
+			// from the manual's sidebar.json; each group opens when you're on one of its pages.
 			sidebar: [
-				{
-					label: 'Manual',
-					items: [{ autogenerate: { directory: 'manual' } }],
-				},
+				{ label: 'Introduction', slug: 'manual' },
+				...manualSections.map(({ label, directory }) => ({
+					label,
+					collapsed: true,
+					items: [{ autogenerate: { directory: `manual/${directory}` } }],
+				})),
 			],
 		}),
+		watchManual(),
 	],
 });

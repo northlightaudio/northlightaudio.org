@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # For the app repository to rebuild the site when it makes a release (it needs a token
+  # that can call this repository's dispatches API).
+  repository_dispatch:
+    types: [manual]
 
 permissions:
   contents: read
@@ -19,12 +23,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # The manual comes from the app repository, at its latest release (main before
+      # the first one). scripts/sync-manual.mjs copies it in during the build.
+      - name: Find the manual's version
+        id: manual
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(gh release view --repo northlightaudio/northlight --json tagName --jq .tagName 2>/dev/null || true)
+          echo "ref=${tag:-main}" >> "$GITHUB_OUTPUT"
+          echo "Manual from ${tag:-main}"
+      - uses: actions/checkout@v4
+        with:
+          repository: northlightaudio/northlight
+          ref: ${{ steps.manual.outputs.ref }}
+          path: northlight-app
+          sparse-checkout: docs/manual
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          NORTHLIGHT_APP_DIR: northlight-app
+          NORTHLIGHT_MANUAL_REF: ${{ steps.manual.outputs.ref }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

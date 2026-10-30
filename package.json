@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync-brand": "node scripts/sync-brand.mjs"
+    "sync-brand": "node scripts/sync-brand.mjs",
+    "sync-manual": "node scripts/sync-manual.mjs"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.42.6",

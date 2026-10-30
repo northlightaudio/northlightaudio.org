@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # local Claude Code settings
 .claude/
+
+# the manual, copied from the app repository when the site builds (scripts/sync-manual.mjs)
+src/content/docs/manual/
