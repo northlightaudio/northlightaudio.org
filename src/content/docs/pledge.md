@@ -56,9 +56,8 @@ where they can see them.
 ## Where we are today
 
 Northlight runs only on Windows for now. The code is written so it can be ported, but
-until it is, people on other systems can't use it. It also hasn't had its first release
-yet: you can [build it yourself](/download/#build-it-yourself) today, and installers will
-follow.
+until it is, people on other systems can't use it. Its first release, 0.1.0 beta 1, is
+a beta: [download it](/download/) to try it, and expect rough edges.
 
 ## What we ask of you
 

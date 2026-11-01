@@ -9,11 +9,17 @@ import { LinkButton } from '@astrojs/starlight/components';
 Northlight is free to download and use, with no account, no licence key and no time
 limit.
 
-It hasn't had its first release yet. Installers will be published on the
-releases page and linked here.
+The latest version is **0.1.0 beta 1**, the first public release. It's a beta: ready
+to try and to record with, with rough edges still to find. The
+[release notes](/news/northlight-0-1-0-beta-1/) say what's in it, and the
+[roadmap](https://github.com/northlightaudio/northlight/blob/main/docs/roadmap.md) says
+what's planned and what's still missing.
 
-<LinkButton href="https://github.com/northlightaudio/northlight/releases" variant="secondary" icon="external">
-	Releases on GitHub
+<LinkButton href="https://github.com/northlightaudio/northlight/releases/download/v0.1.0-beta.1/Northlight-0.1.0-beta.1-Setup-x64.exe" icon="download" data-download="installer">
+	Download the installer (0.1.0 beta 1)
+</LinkButton>
+<LinkButton href="https://github.com/northlightaudio/northlight/releases/tag/v0.1.0-beta.1" variant="secondary" icon="external" data-download="releases">
+	Portable zip and checksums
 </LinkButton>
 
 ## System requirements
@@ -21,7 +27,7 @@ releases page and linked here.
 <div class="nl-rows">
 	<div>
 		<strong>Windows</strong>
-		<p>Windows 10 or 11, 64-bit</p>
+		<p>Windows 10 or 11, 64-bit. There's no version for Mac or Linux yet.</p>
 	</div>
 	<div>
 		<strong>Audio</strong>
@@ -38,4 +44,4 @@ releases page and linked here.
 The source is on [GitHub](https://github.com/northlightaudio/northlight). Building needs
 Visual Studio 2022 or later with the "Desktop development with C++" workload, and Git.
 Visual Studio Community is free for individuals and open source work. The repository's
-README has the steps, including how to enable ASIO.
+README has the steps. ASIO support is built in, with nothing extra to download.
