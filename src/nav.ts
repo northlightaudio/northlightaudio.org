@@ -36,6 +36,7 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
 		links: [
 			{ label: 'The pledge', href: '/pledge/' },
 			{ label: 'Licence', href: '/licence/' },
+			{ label: 'Privacy', href: '/privacy/' },
 			{ label: 'Press kit', href: '/press/' },
 		],
 	},

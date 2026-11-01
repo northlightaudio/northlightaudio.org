@@ -48,3 +48,8 @@ const { pathname } = Astro.url;
 		{!hasSidebar && <SiteMenu />}
 	</div>
 </div>
+
+<script>
+	// Every page has this header, so the campaign script runs everywhere.
+	import '../scripts/campaign';
+</script>
