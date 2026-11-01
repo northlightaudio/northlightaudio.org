@@ -23,14 +23,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # The manual comes from the app repository, at its latest release (main before
-      # the first one). scripts/sync-manual.mjs copies it in during the build.
+      # The manual comes from the app repository, at its latest published release, betas
+      # included (main before the first one). scripts/sync-manual.mjs copies it in
+      # during the build. The app repository is public, so the job's own token reads it.
       - name: Find the manual's version
         id: manual
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          tag=$(gh release view --repo northlightaudio/northlight --json tagName --jq .tagName 2>/dev/null || true)
+          tag=$(gh release list --repo northlightaudio/northlight --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName // empty' 2>/dev/null || true)
           echo "ref=${tag:-main}" >> "$GITHUB_OUTPUT"
           echo "Manual from ${tag:-main}"
       - uses: actions/checkout@v4

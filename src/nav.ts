@@ -12,6 +12,7 @@ export const discord = 'https://discord.gg/dkW3NSenhP';
 export const primaryNav: NavLink[] = [
 	{ label: 'Features', href: '/#features' },
 	{ label: 'Manual', href: '/manual/' },
+	{ label: 'News', href: '/news/' },
 	{ label: 'The pledge', href: '/pledge/' },
 	{ label: 'Join in', href: '/contributing/' },
 	{ label: 'Press kit', href: '/press/' },
@@ -26,6 +27,7 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
 			{ label: 'Download', href: '/download/' },
 			{ label: 'System requirements', href: '/download/#system-requirements' },
 			{ label: 'Manual', href: '/manual/' },
+			{ label: 'News', href: '/news/' },
 			{ label: 'Build it yourself', href: '/download/#build-it-yourself' },
 		],
 	},

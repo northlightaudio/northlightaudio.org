@@ -24,6 +24,13 @@ Every push to `main` builds the site and publishes it to GitHub Pages
 Pages needs this repository to be public. In the repository's settings, set Pages to
 deploy from GitHub Actions, and point the domain's DNS at GitHub Pages.
 
+## News
+
+News posts are pages in `src/content/docs/news/`, with `template: splash` and a
+`date` in their frontmatter; the news page (`/news/`) lists them newest first, and the
+date shows under the title. `draft: true` keeps a post out of the published site until
+it's ready.
+
 ## The manual
 
 The user manual lives in the application repository, in `docs/manual/`, so it's

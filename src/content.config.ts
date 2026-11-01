@@ -11,6 +11,9 @@ export const collections = {
 			extend: z.object({
 				heroNote: z.string().optional(),
 				heroCaption: z.string().optional(),
+				// News posts (src/content/docs/news/): the day it was posted, shown under the
+				// title and used to order the news page (src/components/NewsList.astro).
+				date: z.coerce.date().optional(),
 			}),
 		}),
 	}),

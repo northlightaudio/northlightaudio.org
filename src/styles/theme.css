@@ -1106,3 +1106,45 @@ body {
 	border-radius: var(--nl-radius-sm);
 	color: var(--nl-text-primary);
 }
+
+/* ----- The news page (components/NewsList.astro) ----- */
+
+.nl-news {
+	margin-block: 2rem;
+	padding: 0;
+	list-style: none;
+}
+
+.nl-news li {
+	padding-block: 1.25rem;
+	border-top: 1px solid var(--nl-line-subtle);
+}
+
+.nl-news li:last-child {
+	border-bottom: 1px solid var(--nl-line-subtle);
+}
+
+.nl-news time {
+	display: block;
+	color: var(--nl-text-tertiary);
+	font-size: var(--sl-text-sm);
+}
+
+.nl-news a {
+	display: inline-block;
+	margin-top: 0.25rem;
+	color: var(--nl-text-primary);
+	font-family: var(--nl-font-display);
+	font-size: var(--sl-text-2xl);
+	line-height: var(--sl-line-height-headings);
+	text-decoration: none;
+}
+
+.nl-news a:hover {
+	color: var(--nl-overcast);
+}
+
+.nl-news p {
+	margin: 0.5rem 0 0;
+	color: var(--nl-text-secondary);
+}

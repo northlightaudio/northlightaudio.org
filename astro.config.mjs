@@ -54,6 +54,8 @@ export default defineConfig({
 				MobileMenuFooter: './src/components/MobileMenuFooter.astro',
 				Footer: './src/components/Footer.astro',
 				Hero: './src/components/Hero.astro',
+				// Adds the date under a news post's title.
+				PageTitle: './src/components/PageTitle.astro',
 			},
 			customCss: ['./src/styles/brand.css', './src/styles/theme.css'],
 			head: [

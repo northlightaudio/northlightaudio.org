@@ -1,0 +1,31 @@
+---
+// The page title, as Starlight draws it, with the date under it on news posts.
+import { formatDate } from '../news';
+
+const { title, date } = Astro.locals.starlightRoute.entry.data;
+---
+
+<h1 id="_top">{title}</h1>
+{
+	date && (
+		<p class="nl-post-date">
+			<time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time>
+		</p>
+	)
+}
+
+<style>
+	h1 {
+		margin-top: 1rem;
+		font-size: var(--sl-text-h1);
+		line-height: var(--sl-line-height-headings);
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+
+	.nl-post-date {
+		margin-top: 0.5rem;
+		color: var(--nl-text-tertiary);
+		font-size: var(--sl-text-sm);
+	}
+</style>

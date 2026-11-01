@@ -1,0 +1,18 @@
+---
+// The list of news posts on /news/, newest first.
+import { formatDate, newsPosts } from '../news';
+
+const posts = await newsPosts();
+---
+
+<ul class="nl-news not-content">
+	{
+		posts.map((post) => (
+			<li>
+				<time datetime={post.data.date.toISOString().slice(0, 10)}>{formatDate(post.data.date)}</time>
+				<a href={`/${post.id}/`}>{post.data.title}</a>
+				{post.data.description && <p>{post.data.description}</p>}
+			</li>
+		))
+	}
+</ul>
