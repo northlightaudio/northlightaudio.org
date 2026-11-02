@@ -1,37 +1,69 @@
 ---
 template: splash
 title: Download
-description: Get Northlight for Windows. Free, with no account and no time limit.
+description: Get Northlight for Windows, or try the experimental Linux version. Free, with no account and no time limit.
 ---
 
 import { LinkButton } from '@astrojs/starlight/components';
 
+export const release = 'https://github.com/northlightaudio/northlight/releases/download/v0.1.0-beta.2';
+
 Northlight is free to download and use, with no account, no licence key and no time
 limit.
 
-The latest version is **0.1.0 beta 1**, the first public release. It's a beta: ready
-to try and to record with, with rough edges still to find. The
-[release notes](/news/northlight-0-1-0-beta-1/) say what's in it, and the
-[roadmap](https://github.com/northlightaudio/northlight/blob/main/docs/roadmap.md) says
+The latest version is **0.1.0 beta 2**. It's a beta: ready to try and to record with,
+with rough edges still to find. [The first beta's release notes](/news/northlight-0-1-0-beta-1/)
+say what's in it, [beta 2's](/news/northlight-0-1-0-beta-2/) what's different on Linux,
+and the [roadmap](https://github.com/northlightaudio/northlight/blob/main/docs/roadmap.md)
 what's planned and what's still missing.
 
-<LinkButton href="https://github.com/northlightaudio/northlight/releases/download/v0.1.0-beta.1/Northlight-0.1.0-beta.1-Setup-x64.exe" icon="download" data-download="installer">
-	Download the installer (0.1.0 beta 1)
+## Windows
+
+<LinkButton href={`${release}/Northlight-0.1.0-beta.2-Setup-x64.exe`} icon="download" data-download="installer">
+	Download the installer
 </LinkButton>
-<LinkButton href="https://github.com/northlightaudio/northlight/releases/tag/v0.1.0-beta.1" variant="secondary" icon="external" data-download="releases">
-	Portable zip and checksums
+<LinkButton href={`${release}/Northlight-0.1.0-beta.2-x64.zip`} variant="secondary" icon="download" data-download="portable">
+	Portable zip
 </LinkButton>
+
+The installer doesn't need administrator rights unless you install for everyone on the
+computer. The portable zip runs from any folder. Northlight isn't code-signed yet, so
+Windows SmartScreen warns that the publisher is unknown the first time it runs: choose
+**More info**, then **Run anyway**.
+
+## Linux
+
+<LinkButton href={`${release}/Northlight-0.1.0-beta.2-x86_64.AppImage`} icon="download" data-download="appimage">
+	Download the AppImage
+</LinkButton>
+
+The Linux version is experimental: CLAP plugins have no editor windows yet, and a
+crashing plugin takes Northlight down with it. [The beta 2 news](/news/northlight-0-1-0-beta-2/)
+has the details. It's one file with nothing to install. Make it executable and run it:
+
+```sh
+chmod +x Northlight-0.1.0-beta.2-x86_64.AppImage
+./Northlight-0.1.0-beta.2-x86_64.AppImage
+```
+
+Checksums for every download are in
+[SHA256SUMS.txt](https://github.com/northlightaudio/northlight/releases/download/v0.1.0-beta.2/SHA256SUMS.txt)
+on the [release page](https://github.com/northlightaudio/northlight/releases/tag/v0.1.0-beta.2).
 
 ## System requirements
 
 <div class="nl-rows">
 	<div>
 		<strong>Windows</strong>
-		<p>Windows 10 or 11, 64-bit. There's no version for Mac or Linux yet.</p>
+		<p>Windows 10 or 11, 64-bit.</p>
+	</div>
+	<div>
+		<strong>Linux</strong>
+		<p>A 64-bit PC with Ubuntu 22.04 or newer, or another distribution with glibc 2.35 or newer.</p>
 	</div>
 	<div>
 		<strong>Audio</strong>
-		<p>An audio interface with an ASIO driver is recommended. Windows Audio (WASAPI) works too, including with a computer's built-in sound.</p>
+		<p>On Windows, an audio interface with an ASIO driver is recommended; Windows Audio (WASAPI) works too, including with a computer's built-in sound. On Linux, Northlight plays through JACK or PipeWire, or ALSA when neither is running.</p>
 	</div>
 	<div>
 		<strong>Plugins</strong>
@@ -39,9 +71,14 @@ what's planned and what's still missing.
 	</div>
 </div>
 
+There's no version for Mac yet.
+
 ## Build it yourself
 
-The source is on [GitHub](https://github.com/northlightaudio/northlight). Building needs
-Visual Studio 2022 or later with the "Desktop development with C++" workload, and Git.
-Visual Studio Community is free for individuals and open source work. The repository's
-README has the steps. ASIO support is built in, with nothing extra to download.
+The source is on [GitHub](https://github.com/northlightaudio/northlight). On Windows,
+building needs Visual Studio 2022 or later with the "Desktop development with C++"
+workload, and Git. Visual Studio Community is free for individuals and open source
+work. ASIO support is built in, with nothing extra to download. On Linux it builds with
+GCC, CMake and Ninja.
+[Building Northlight](https://github.com/northlightaudio/northlight/blob/main/docs/building.md)
+has the steps for both.

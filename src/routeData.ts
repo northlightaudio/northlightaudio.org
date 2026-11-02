@@ -6,7 +6,7 @@ const image = {
 	path: '/og-image.jpg',
 	width: '1200',
 	height: '630',
-	alt: 'Northlight: Music belongs to everyone. A free and open source studio for recording, arranging and mixing music on Windows.',
+	alt: 'Northlight: Music belongs to everyone. A free and open source studio for making music on Windows and Linux.',
 };
 
 const homeTitle = 'Northlight | Music belongs to everyone';

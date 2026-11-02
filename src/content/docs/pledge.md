@@ -55,9 +55,9 @@ where they can see them.
 
 ## Where we are today
 
-Northlight runs only on Windows for now. The code is written so it can be ported, but
-until it is, people on other systems can't use it. Its first release, 0.1.0 beta 1, is
-a beta: [download it](/download/) to try it, and expect rough edges.
+Northlight runs on Windows, and since 0.1.0 beta 2 there's an experimental version for
+Linux. There's no version for Mac yet, so people on a Mac can't use it. It's a beta:
+[download it](/download/) to try it, and expect rough edges.
 
 ## What we ask of you
 
